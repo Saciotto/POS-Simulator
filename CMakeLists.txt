@@ -14,7 +14,12 @@ qt_add_executable(simulator
 qt_add_qml_module(simulator
     URI POS-Simulator
     VERSION 1.0
-    QML_FILES views/SimulatorView.qml
+    QML_FILES
+        "views/SimulatorView.qml"
+        "views/components/D200.qml"
+        "views/components/InvisibleButton.qml"
+    RESOURCES
+        "assets/images/D200.png"
 )
 
 set_target_properties(simulator PROPERTIES
