@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import KeyCodes
+
 Item {
     function scaleX(image, position) {
         const aspectRatio = image.paintedWidth / image.sourceSize.width
@@ -42,7 +44,7 @@ Item {
             y: scaleY(parent, 453)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("F1 clicked")
+            onClicked: master.pos.keyClicked(Key.d200F1)
         }
 
         InvisibleButton {
@@ -51,97 +53,97 @@ Item {
             y: scaleY(parent, 453)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("F2 clicked")
+            onClicked: master.pos.keyClicked(Key.d200F2)
         }
 
         InvisibleButton {
-            id: backspace
+            id: back
             x: scaleX(parent, 393)
             y: scaleY(parent, 453)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("Backspace clicked")
+            onClicked: console.log(Key.back)
         }
 
         InvisibleButton {
-            id: key1
+            id: num1
             x: scaleX(parent, 81)
             y: scaleY(parent, 532)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("1 clicked")
+            onClicked: master.pos.keyClicked(Key.num1)
         }
 
         InvisibleButton {
-            id: key2
+            id: num2
             x: scaleX(parent, 240)
             y: scaleY(parent, 532)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("2 clicked")
+            onClicked: master.pos.keyClicked(Key.num2)
         }
 
         InvisibleButton {
-            id: key3
+            id: num3
             x: scaleX(parent, 393)
             y: scaleY(parent, 532)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("3 clicked")
+            onClicked: master.pos.keyClicked(Key.num3)
         }
 
         InvisibleButton {
-            id: key4
+            id: num4
             x: scaleX(parent, 81)
             y: scaleY(parent, 611)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("4 clicked")
+            onClicked: master.pos.keyClicked(Key.num4)
         }
 
         InvisibleButton {
-            id: key5
+            id: num5
             x: scaleX(parent, 240)
             y: scaleY(parent, 611)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("5 clicked")
+            onClicked: master.pos.keyClicked(Key.num5)
         }
 
         InvisibleButton {
-            id: key6
+            id: num6
             x: scaleX(parent, 393)
             y: scaleY(parent, 611)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("6 clicked")
+            onClicked: master.pos.keyClicked(Key.num6)
         }
 
         InvisibleButton {
-            id: key7
+            id: num7
             x: scaleX(parent, 81)
             y: scaleY(parent, 690)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("7 clicked")
+            onClicked: master.pos.keyClicked(Key.num7)
         }
 
         InvisibleButton {
-            id: key8
+            id: num8
             x: scaleX(parent, 240)
             y: scaleY(parent, 690)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("8 clicked")
+            onClicked: master.pos.keyClicked(Key.num8)
         }
 
         InvisibleButton {
-            id: key9
+            id: num9
             x: scaleX(parent, 393)
             y: scaleY(parent, 690)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("9 clicked")
+            onClicked: master.pos.keyClicked(Key.num9)
         }
 
         InvisibleButton {
@@ -150,16 +152,16 @@ Item {
             y: scaleY(parent, 769)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("Cancel clicked")
+            onClicked: master.pos.keyClicked(Key.cancel)
         }
 
         InvisibleButton {
-            id: key0
+            id: num0
             x: scaleX(parent, 240)
             y: scaleY(parent, 769)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("0 clicked")
+            onClicked: master.pos.keyClicked(Key.num0)
         }
 
         InvisibleButton {
@@ -168,7 +170,7 @@ Item {
             y: scaleY(parent, 769)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: console.log("Enter clicked")
+            onClicked: master.pos.keyClicked(Key.enter)
         }
     }
 }

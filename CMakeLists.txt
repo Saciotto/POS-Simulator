@@ -8,7 +8,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 
 qt_add_executable(simulator
+    # Sources
     source/main.cpp
+    source/controllers/master_controller.cpp
+    source/controllers/pos_controller.cpp
+
+    # Headers
+    source/controllers/master_controller.hpp
+    source/controllers/pos_controller.hpp
 )
 
 qt_add_qml_module(simulator
@@ -18,6 +25,7 @@ qt_add_qml_module(simulator
         "views/SimulatorView.qml"
         "views/components/D200.qml"
         "views/components/InvisibleButton.qml"
+        "views/constants/KeyCodes.qml"
     RESOURCES
         "assets/images/D200.png"
 )
@@ -29,6 +37,9 @@ set_target_properties(simulator PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+
+target_include_directories(simulator
+    PRIVATE "source")
 
 target_link_libraries(simulator
     PRIVATE Qt6::Quick)
