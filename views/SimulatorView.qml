@@ -1,6 +1,6 @@
-import QtQuick 6.4
-import QtQuick.Controls 6.4
-import QtQuick.Layouts 6.4
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 import "components"
 

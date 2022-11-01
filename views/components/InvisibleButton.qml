@@ -1,25 +1,33 @@
-import QtQuick 6.4
-import QtQuick.Controls 6.4
+import QtQuick
+import QtQuick.Controls
 
-Button {
+Rectangle {
     id: button
-    background: Rectangle {
-        color: "#00000000"
-        radius: 10
-        Behavior on color {
-            ColorAnimation {
-                duration: 120
-                easing.type: Easing.OutElastic
-            }
+    signal clicked
+
+    color: "black"
+    opacity: 0
+    radius: 10
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        onClicked: button.clicked()
+    }
+
+    Behavior on color {
+        ColorAnimation {
+            duration: 120
+            easing.type: Easing.OutElastic
         }
     }
+
     states: [
         State {
-            name: "pressed"
-            when: button.pressed
+            when: mouseArea.pressed
             PropertyChanges {
-                target: button.background
-                color: "#40000000"
+                target: button
+                opacity: 0.30
             }
         }
     ]

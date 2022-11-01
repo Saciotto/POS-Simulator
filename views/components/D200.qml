@@ -1,6 +1,6 @@
-import QtQuick 6.4
-import QtQuick.Controls 6.4
-import QtQuick.Layouts 6.4
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 Item {
     function scaleX(image, position) {
@@ -24,7 +24,7 @@ Item {
     }
 
     Image {
-        source: "qrc:/POS-Simulator/assets/images/D200.png"
+        source: "qrc:/POS_Simulator/assets/images/D200.png"
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit
         clip:true

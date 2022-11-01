@@ -12,7 +12,7 @@ qt_add_executable(simulator
 )
 
 qt_add_qml_module(simulator
-    URI POS-Simulator
+    URI POS_Simulator
     VERSION 1.0
     QML_FILES
         "views/SimulatorView.qml"
