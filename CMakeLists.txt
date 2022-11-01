@@ -7,6 +7,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 
+qt_add_resources(RESOURCES
+    assets.qrc components.qrc skins.qrc views.qrc
+)
+
 qt_add_executable(simulator
     # Sources
     source/main.cpp
@@ -16,18 +20,9 @@ qt_add_executable(simulator
     # Headers
     source/controllers/master_controller.hpp
     source/controllers/pos_controller.hpp
-)
 
-qt_add_qml_module(simulator
-    URI POS_Simulator
-    VERSION 1.0
-    QML_FILES
-        "views/SimulatorView.qml"
-        "views/components/D200.qml"
-        "views/components/InvisibleButton.qml"
-        "views/constants/KeyCodes.qml"
-    RESOURCES
-        "assets/images/D200.png"
+    # Resources
+    ${RESOURCES}
 )
 
 set_target_properties(simulator PROPERTIES
@@ -47,3 +42,6 @@ target_link_libraries(simulator
 install(TARGETS simulator
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR} CACHE STRING "/" FORCE)
+

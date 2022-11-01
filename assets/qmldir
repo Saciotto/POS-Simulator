@@ -1,0 +1,2 @@
+module assets
+singleton Key 1.0 KeyCodes.qml

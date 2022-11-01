@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/skins">
+        <file alias="qmldir">skins/qmldir</file>
+        <file alias="D200.qml">skins/D200.qml</file>
+    </qresource>
+</RCC>

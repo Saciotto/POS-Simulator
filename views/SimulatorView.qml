@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-import "components"
+import skins
 
 ApplicationWindow {
     width: 480
@@ -12,5 +12,8 @@ ApplicationWindow {
 
     D200 {
         anchors.fill: parent
+        onClicked: function(keyCode) {
+            master.pos.keyClicked(keyCode);
+        }
     }
 }

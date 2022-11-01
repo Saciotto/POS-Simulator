@@ -2,6 +2,8 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
+#include <QDirIterator>
+
 #include "controllers/master_controller.hpp"
 #include "controllers/pos_controller.hpp"
 
@@ -9,18 +11,20 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    const QUrl mainView(QStringLiteral("qrc:/POS_Simulator/views/SimulatorView.qml"));
-    const QUrl keyCodes(QStringLiteral("qrc:/POS_Simulator/views/constants/KeyCodes.qml"));
+    QDirIterator it(":", QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        qDebug() << it.next();
+    }
+
+    const QUrl mainView(QStringLiteral("qrc:/views/SimulatorView.qml"));
 
     qmlRegisterType<simulator::controllers::MasterController>("Simulator", 1, 0, "MasterController");
     qmlRegisterType<simulator::controllers::PosController>("Simulator", 1, 0, "PosController");
 
-    qmlRegisterSingletonType(keyCodes, "KeyCodes", 1, 0, "Key");
-
     simulator::controllers::MasterController masterController;
 
     QQmlApplicationEngine engine;
-    engine.addImportPath("qrc:/POS_Simulator");
+    engine.addImportPath("qrc:/");
     engine.rootContext()->setContextProperty("master", &masterController);
 
     QObject::connect(

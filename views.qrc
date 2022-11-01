@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/views">
+        <file alias="SimulatorView.qml">views/SimulatorView.qml</file>
+    </qresource>
+</RCC>
