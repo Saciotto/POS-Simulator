@@ -1,19 +1,27 @@
 #include "pos_controller.hpp"
 
-#include <QDebug>
+#include "display_controller.hpp"
+#include "keypad_controller.hpp"
 
 using namespace simulator::controllers;
 
 PosController::PosController(QObject* parent)
     : QObject(parent)
 {
+    mKeypadController = new KeypadController(this);
+    mDisplayController = new DisplayController(this);
 }
 
 PosController::~PosController()
 {
 }
 
-void PosController::keyClicked(int keyCode)
+KeypadController* PosController::keypadController()
 {
-    qDebug() << "Key pressed:" << keyCode;
+    return mKeypadController;
+}
+
+DisplayController* PosController::displayController()
+{
+    return mDisplayController;
 }

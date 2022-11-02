@@ -12,8 +12,9 @@ ApplicationWindow {
 
     D200 {
         anchors.fill: parent
+        image: pos.display.image
         onClicked: function(keyCode) {
-            master.pos.keyClicked(keyCode);
+            pos.keypad.keyClicked(keyCode);
         }
     }
 }

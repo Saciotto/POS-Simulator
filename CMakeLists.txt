@@ -13,12 +13,16 @@ qt_add_resources(RESOURCES
 
 qt_add_executable(simulator
     # Sources
-    source/main.cpp
-    source/controllers/master_controller.cpp
+    source/components/display.cpp
+    source/controllers/display_controller.cpp
+    source/controllers/keypad_controller.cpp
     source/controllers/pos_controller.cpp
+    source/main.cpp
 
     # Headers
-    source/controllers/master_controller.hpp
+    source/components/display.hpp
+    source/controllers/display_controller.hpp
+    source/controllers/keypad_controller.hpp
     source/controllers/pos_controller.hpp
 
     # Resources

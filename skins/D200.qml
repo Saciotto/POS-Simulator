@@ -6,8 +6,9 @@ import assets
 import components
 
 Item {
-    id: pos
+    id: d200
     signal clicked(keyCode: int)
+    property alias image: display.image
 
     function scaleX(image, position) {
         const aspectRatio = image.paintedWidth / image.sourceSize.width
@@ -35,7 +36,8 @@ Item {
         fillMode: Image.PreserveAspectFit
         clip:true
 
-        Rectangle {
+        Display {
+            id: display
             x: scaleX(parent, 101)
             y: scaleY(parent, 108)
             width: scaleWidth(parent, 367)
@@ -48,7 +50,7 @@ Item {
             y: scaleY(parent, 453)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.d200F1)
+            onClicked: d200.clicked(Key.d200F1)
         }
 
         InvisibleButton {
@@ -57,7 +59,7 @@ Item {
             y: scaleY(parent, 453)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.d200F2)
+            onClicked: d200.clicked(Key.d200F2)
         }
 
         InvisibleButton {
@@ -66,7 +68,7 @@ Item {
             y: scaleY(parent, 453)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.back)
+            onClicked: d200.clicked(Key.back)
         }
 
         InvisibleButton {
@@ -75,7 +77,7 @@ Item {
             y: scaleY(parent, 532)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.num1)
+            onClicked: d200.clicked(Key.num1)
         }
 
         InvisibleButton {
@@ -84,7 +86,7 @@ Item {
             y: scaleY(parent, 532)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.num2)
+            onClicked: d200.clicked(Key.num2)
         }
 
         InvisibleButton {
@@ -93,7 +95,7 @@ Item {
             y: scaleY(parent, 532)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.num3)
+            onClicked: d200.clicked(Key.num3)
         }
 
         InvisibleButton {
@@ -102,7 +104,7 @@ Item {
             y: scaleY(parent, 611)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.num4)
+            onClicked: d200.clicked(Key.num4)
         }
 
         InvisibleButton {
@@ -111,7 +113,7 @@ Item {
             y: scaleY(parent, 611)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.num5)
+            onClicked: d200.clicked(Key.num5)
         }
 
         InvisibleButton {
@@ -120,7 +122,7 @@ Item {
             y: scaleY(parent, 611)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.num6)
+            onClicked: d200.clicked(Key.num6)
         }
 
         InvisibleButton {
@@ -129,7 +131,7 @@ Item {
             y: scaleY(parent, 690)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.num7)
+            onClicked: d200.clicked(Key.num7)
         }
 
         InvisibleButton {
@@ -138,7 +140,7 @@ Item {
             y: scaleY(parent, 690)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.num8)
+            onClicked: d200.clicked(Key.num8)
         }
 
         InvisibleButton {
@@ -147,7 +149,7 @@ Item {
             y: scaleY(parent, 690)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.num9)
+            onClicked: d200.clicked(Key.num9)
         }
 
         InvisibleButton {
@@ -156,7 +158,7 @@ Item {
             y: scaleY(parent, 769)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.cancel)
+            onClicked: d200.clicked(Key.cancel)
         }
 
         InvisibleButton {
@@ -165,7 +167,7 @@ Item {
             y: scaleY(parent, 769)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.num0)
+            onClicked: d200.clicked(Key.num0)
         }
 
         InvisibleButton {
@@ -174,7 +176,7 @@ Item {
             y: scaleY(parent, 769)
             width: scaleWidth(parent, 111)
             height: scaleHeight(parent, 79)
-            onClicked: pos.clicked(Key.enter)
+            onClicked: d200.clicked(Key.enter)
         }
     }
 }

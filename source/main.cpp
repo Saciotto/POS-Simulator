@@ -2,31 +2,28 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include <QDirIterator>
-
-#include "controllers/master_controller.hpp"
+#include "components/display.hpp"
+#include "controllers/display_controller.hpp"
+#include "controllers/keypad_controller.hpp"
 #include "controllers/pos_controller.hpp"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    QDirIterator it(":", QDirIterator::Subdirectories);
-    while (it.hasNext()) {
-        qDebug() << it.next();
-    }
+    qmlRegisterType<simulator::controllers::PosController>("simulator", 1, 0, "PosController");
+    qmlRegisterType<simulator::controllers::KeypadController>("simulator", 1, 0, "KeypadController");
+    qmlRegisterType<simulator::controllers::DisplayController>("simulator", 1, 0, "DisplayController");
 
-    const QUrl mainView(QStringLiteral("qrc:/views/SimulatorView.qml"));
+    qmlRegisterType<simulator::components::Display>("components", 1, 0, "Display");
 
-    qmlRegisterType<simulator::controllers::MasterController>("Simulator", 1, 0, "MasterController");
-    qmlRegisterType<simulator::controllers::PosController>("Simulator", 1, 0, "PosController");
-
-    simulator::controllers::MasterController masterController;
+    simulator::controllers::PosController pos;
 
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");
-    engine.rootContext()->setContextProperty("master", &masterController);
+    engine.rootContext()->setContextProperty("pos", &pos);
 
+    const QUrl mainView(QStringLiteral("qrc:/views/SimulatorView.qml"));
     QObject::connect(
         &engine, &QQmlApplicationEngine::objectCreated,
         &app, [mainView](QObject* obj, const QUrl& objUrl) {

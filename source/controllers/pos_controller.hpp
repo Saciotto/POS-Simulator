@@ -1,24 +1,33 @@
-#ifndef POS_CONTROLLER_H
-#define POS_CONTROLLER_H
+#ifndef POS_CONTROLLER_HPP
+#define POS_CONTROLLER_HPP
 
 #include <QObject>
 
 namespace simulator {
 namespace controllers {
 
+class KeypadController;
+class DisplayController;
+
 class PosController : public QObject {
     Q_OBJECT
+    Q_PROPERTY(simulator::controllers::KeypadController* keypad READ keypadController CONSTANT)
+    Q_PROPERTY(simulator::controllers::DisplayController* display READ displayController CONSTANT)
 
 public:
     explicit PosController(QObject* parent = nullptr);
 
     ~PosController();
 
-public slots:
-    void keyClicked(int keyCode);
+    KeypadController* keypadController();
+    DisplayController* displayController();
+
+private:
+    KeypadController* mKeypadController;
+    DisplayController* mDisplayController;
 };
 
 } // namespace controllers
 } // namespace simulator
 
-#endif // SIMULATOR_CONTROLLER_H
+#endif // POS_CONTROLLER_HPP
