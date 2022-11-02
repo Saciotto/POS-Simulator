@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(POS-Simulator VERSION 0.1 LANGUAGES CXX)
+project(POS-Simulator VERSION 0.1 LANGUAGES C CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -13,10 +13,12 @@ qt_add_resources(RESOURCES
 
 qt_add_executable(simulator
     # Sources
+    source/application/entry.c
     source/components/display.cpp
     source/controllers/display_controller.cpp
     source/controllers/keypad_controller.cpp
     source/controllers/pos_controller.cpp
+    source/framework/binding.cpp
     source/main.cpp
 
     # Headers
@@ -24,6 +26,8 @@ qt_add_executable(simulator
     source/controllers/display_controller.hpp
     source/controllers/keypad_controller.hpp
     source/controllers/pos_controller.hpp
+    source/framework/binding.hpp
+    source/framework/framework.h
 
     # Resources
     ${RESOURCES}

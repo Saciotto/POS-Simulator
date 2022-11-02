@@ -6,6 +6,7 @@
 #include "controllers/display_controller.hpp"
 #include "controllers/keypad_controller.hpp"
 #include "controllers/pos_controller.hpp"
+#include "framework/binding.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -32,5 +33,7 @@ int main(int argc, char *argv[])
         },
         Qt::QueuedConnection);
     engine.load(mainView);
+    simulator::framework::init(&pos);
+    simulator::framework::startApplication();
     return app.exec();
 }
