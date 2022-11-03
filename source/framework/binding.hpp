@@ -11,6 +11,8 @@ namespace framework {
 
 void init(controllers::PosController *posController);
 
+void finish();
+
 void startApplication();
 
 } // namespace framework

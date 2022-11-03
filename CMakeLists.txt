@@ -4,6 +4,7 @@ project(POS-Simulator VERSION 0.1 LANGUAGES C CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 17)
 
 find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 
@@ -19,6 +20,7 @@ qt_add_executable(simulator
     source/controllers/keypad_controller.cpp
     source/controllers/pos_controller.cpp
     source/framework/binding.cpp
+    source/framework/lv_init.c
     source/main.cpp
 
     # Headers
@@ -28,6 +30,8 @@ qt_add_executable(simulator
     source/controllers/pos_controller.hpp
     source/framework/binding.hpp
     source/framework/framework.h
+    source/framework/lv_conf.h
+    source/framework/lv_init.h
 
     # Resources
     ${RESOURCES}
@@ -41,15 +45,20 @@ set_target_properties(simulator PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+include(FetchContent)
+set(LV_CONF_PATH ${CMAKE_SOURCE_DIR}/source/framework/lv_conf.h CACHE STRING "" FORCE)
+FetchContent_Declare(lvgl GIT_REPOSITORY https://github.com/lvgl/lvgl.git)
+FetchContent_MakeAvailable(lvgl)
+
 target_include_directories(simulator
     PRIVATE "source")
 
-target_link_libraries(simulator
-    PRIVATE Qt6::Quick)
+target_link_libraries(simulator PRIVATE
+    Qt6::Quick
+    lvgl::lvgl)
 
 install(TARGETS simulator
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR} CACHE STRING "/" FORCE)
-

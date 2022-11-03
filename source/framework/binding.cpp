@@ -5,6 +5,7 @@
 #include "controllers/display_controller.hpp"
 
 #include "framework.h"
+#include "lv_init.h"
 
 #include <QImage>
 #include <QDebug>
@@ -13,14 +14,25 @@
 static simulator::controllers::PosController *pos = nullptr;
 static QThread *appThread = nullptr;
 
+static void app_bootstrap()
+{
+    fw_initializeLVGL();
+    app_main();
+}
+
 void simulator::framework::init(simulator::controllers::PosController *posController)
 {
     pos = posController;
 }
 
+void simulator::framework::finish()
+{
+    pos = nullptr;
+}
+
 void simulator::framework::startApplication()
 {
-    appThread = QThread::create(app_main);
+    appThread = QThread::create(app_bootstrap);
     appThread->start();
 }
 
@@ -37,6 +49,13 @@ void fw_display(const unsigned char *bitmap, size_t size)
         return;
     QImage image(QImage::fromData(bitmap, size));
     pos->displayController()->setImage(image);
+}
+
+void fw_setDisplayPixel(int x, int y, int r, int g, int b)
+{
+    if (pos == nullptr)
+        return;
+    pos->displayController()->setPixel(x, y, r, g, b);
 }
 
 void fw_debug(const char *format, ...)

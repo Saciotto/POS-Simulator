@@ -6,7 +6,7 @@ using namespace simulator::components;
 
 Display::Display(QQuickItem* parent)
     : QQuickPaintedItem(parent),
-      mImage(100, 50, QImage::Format_ARGB32)
+      mImage(320, 240, QImage::Format_ARGB32)
 {
     mImage.fill(QColor("white").rgba());
 }

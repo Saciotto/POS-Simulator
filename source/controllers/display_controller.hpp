@@ -18,6 +18,9 @@ public:
     ~DisplayController();
 
     void setImage(const QImage& image);
+    void setPixel(int x, int y, int r, int g, int b);
+
+    void timerEvent(QTimerEvent *event);
 
 signals:
     void imageChanged();
