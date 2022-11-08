@@ -4,6 +4,8 @@ import QtQuick.Controls
 Rectangle {
     id: button
     signal clicked
+    signal pressed
+    signal released
 
     color: "black"
     opacity: 0
@@ -13,6 +15,8 @@ Rectangle {
         id: mouseArea
         anchors.fill: parent
         onClicked: button.clicked()
+        onPressed: button.pressed()
+        onReleased: button.released()
     }
 
     Behavior on color {

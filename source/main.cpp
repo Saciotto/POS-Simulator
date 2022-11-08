@@ -3,18 +3,22 @@
 #include <QQmlContext>
 
 #include "components/display.hpp"
+#include "controllers/application_controller.hpp"
 #include "controllers/display_controller.hpp"
 #include "controllers/keypad_controller.hpp"
 #include "controllers/pos_controller.hpp"
-#include "framework/binding.hpp"
+#include "controllers/touchscreen_controller.hpp"
+#include "framework/source/simulator/binding.hpp"
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     QGuiApplication app(argc, argv);
 
     qmlRegisterType<simulator::controllers::PosController>("simulator", 1, 0, "PosController");
     qmlRegisterType<simulator::controllers::KeypadController>("simulator", 1, 0, "KeypadController");
     qmlRegisterType<simulator::controllers::DisplayController>("simulator", 1, 0, "DisplayController");
+    qmlRegisterType<simulator::controllers::ApplicationController>("simulator", 1, 0, "ApplicationController");
+    qmlRegisterType<simulator::controllers::TouchscreenController>("simulator", 1, 0, "TouchscreenController");
 
     qmlRegisterType<simulator::components::Display>("components", 1, 0, "Display");
 
@@ -33,7 +37,6 @@ int main(int argc, char *argv[])
         },
         Qt::QueuedConnection);
     engine.load(mainView);
-    simulator::framework::init(&pos);
-    simulator::framework::startApplication();
+    pos.startApplication();
     return app.exec();
 }

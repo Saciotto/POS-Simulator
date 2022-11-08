@@ -13,8 +13,11 @@ ApplicationWindow {
     D200 {
         anchors.fill: parent
         image: pos.display.image
-        onClicked: function(keyCode) {
-            pos.keypad.keyClicked(keyCode);
+        onClicked: function(isPressed, keyCode) {
+            pos.keypad.keyEvent(isPressed, keyCode);
+        }
+        onTouched: function(isPressed, x, y) {
+            pos.touchscreen.touch(isPressed, x, y);
         }
     }
 }

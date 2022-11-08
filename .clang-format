@@ -1,0 +1,10 @@
+Language: Cpp
+BasedOnStyle: WebKit
+
+AlignConsecutiveMacros: true
+AlignTrailingComments: true
+SpaceAfterCStyleCast: true
+FixNamespaceComments: true
+
+AllowShortFunctionsOnASingleLine: Empty
+NamespaceIndentation: None

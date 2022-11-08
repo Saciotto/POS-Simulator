@@ -15,13 +15,12 @@ public:
 
     ~KeypadController();
 
-    int nextKey() noexcept;
-
 public slots:
-    void keyClicked(int keyCode);
+    void keyEvent(bool isPressed, int keyCode);
 
-private:
-    std::list<int> mKeys {};
+signals:
+    void keyChanged(bool isPressed, int keyCode);
+
 };
 
 } // namespace controllers
