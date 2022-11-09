@@ -1,5 +1,7 @@
 #include "gui_status_bar.h"
 
+#include <stdio.h>
+
 #include "lvgl.h"
 #include "framework.h"
 
@@ -33,41 +35,61 @@ static void update_clock()
     lv_label_set_text(clock_label, text);
 }
 
+static void update_battery()
+{
+    int level = fw_get_battery_level();
+    if (level <= 5)
+        lv_img_set_src(battery_icon, LV_SYMBOL_BATTERY_EMPTY);
+    else if (level <= 25)
+        lv_img_set_src(battery_icon, LV_SYMBOL_BATTERY_1);
+    else if (level <= 50)
+        lv_img_set_src(battery_icon, LV_SYMBOL_BATTERY_2);
+    else if (level <= 75)
+        lv_img_set_src(battery_icon, LV_SYMBOL_BATTERY_3);
+    else
+        lv_img_set_src(battery_icon, LV_SYMBOL_BATTERY_FULL);
+
+    char text[20];
+    snprintf(text, sizeof(text), "%d%%", level);
+    lv_label_set_text(battery_label, text);
+}
+
+static void update_anchors()
+{
+    lv_obj_align_to(battery_label, battery_icon, LV_ALIGN_OUT_LEFT_MID, -GUI_DEFAULT_PADDING, 0);
+    lv_obj_align_to(cellular_icon, battery_label, LV_ALIGN_OUT_LEFT_MID, -GUI_DEFAULT_PADDING, 0);
+    lv_obj_align_to(wifi_icon, cellular_icon, LV_ALIGN_OUT_LEFT_MID, -GUI_DEFAULT_PADDING, 0);
+}
+
 static void add_clock()
 {
     clock_label = lv_label_create(status_bar_canvas);
     lv_obj_set_style_text_align(clock_label, LV_ALIGN_LEFT_MID, 0);
     lv_obj_align(clock_label, LV_ALIGN_LEFT_MID, GUI_DEFAULT_PADDING, 0);
-    update_clock();
 }
 
 static void add_battery_icon()
 {
     battery_icon = lv_img_create(status_bar_canvas);
-    lv_img_set_src(battery_icon, LV_SYMBOL_BATTERY_3);
     lv_obj_align(battery_icon, LV_ALIGN_RIGHT_MID, -GUI_DEFAULT_PADDING, 0);
 }
 
 static void add_battery_percentage()
 {
     battery_label = lv_label_create(status_bar_canvas);
-    lv_obj_set_style_text_align(battery_label, LV_TEXT_ALIGN_CENTER, 0);
-    lv_obj_align_to(battery_label, battery_icon, LV_ALIGN_OUT_LEFT_MID, -GUI_DEFAULT_PADDING, 0);
-    lv_label_set_text(battery_label, "67%");
+    lv_obj_set_style_text_align(battery_label, LV_TEXT_ALIGN_RIGHT, 0);
 }
 
 static void add_cellular_icon()
 {
     cellular_icon = lv_img_create(status_bar_canvas);
     lv_img_set_src(cellular_icon, &img_signal_3);
-    lv_obj_align_to(cellular_icon, battery_label, LV_ALIGN_OUT_LEFT_MID, -GUI_DEFAULT_PADDING, 0);
 }
 
 static void add_wifi_icon()
 {
     wifi_icon = lv_img_create(status_bar_canvas);
     lv_img_set_src(wifi_icon, &img_wifi_2);
-    lv_obj_align_to(wifi_icon, cellular_icon, LV_ALIGN_OUT_LEFT_MID, -GUI_DEFAULT_PADDING, 0);
 }
 
 static lv_obj_t *add_status_bar_area(lv_obj_t *screen)
@@ -86,6 +108,8 @@ static lv_obj_t *add_status_bar_area(lv_obj_t *screen)
 void gui_update_status_bar()
 {
     update_clock();
+    update_battery();
+    update_anchors();
 }
 
 void gui_add_status_bar(lv_obj_t *screen)
@@ -96,4 +120,6 @@ void gui_add_status_bar(lv_obj_t *screen)
     add_battery_percentage();
     add_cellular_icon();
     add_wifi_icon();
+
+    gui_update_status_bar();
 }

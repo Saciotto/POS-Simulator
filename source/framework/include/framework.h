@@ -5,13 +5,17 @@
 extern "C" {
 #endif
 
+#include "fw_battery.h"
+#include "fw_cellular.h"
 #include "fw_log.h"
 #include "fw_lvgl.h"
+#include "fw_string.h"
 #include "fw_thread.h"
-#include "fw_timestamp.h"
 #include "fw_time.h"
+#include "fw_timestamp.h"
+#include "fw_wifi.h"
 
-void app_main();
+extern void app_main();
 
 #ifdef __cplusplus
 }

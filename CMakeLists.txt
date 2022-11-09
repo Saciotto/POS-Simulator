@@ -34,14 +34,18 @@ qt_add_executable(simulator
     source/controllers/pos_controller.cpp
     source/controllers/touchscreen_controller.cpp
     source/framework/source/simulator/binding.cpp
+    source/framework/source/simulator/platf_battery.cpp
+    source/framework/source/simulator/platf_cellular.cpp
     source/framework/source/simulator/platf_log.cpp
     source/framework/source/simulator/platf_lvgl_driver.cpp
     source/framework/source/simulator/platf_lvgl.cpp
     source/framework/source/simulator/platf_thread.cpp
-    source/framework/source/simulator/platf_timestamp.cpp
     source/framework/source/simulator/platf_time.cpp
-    source/framework/source/fw_timestamp.c
+    source/framework/source/simulator/platf_timestamp.cpp
+    source/framework/source/simulator/platf_wifi.cpp
+    source/framework/source/fw_string.c
     source/framework/source/fw_time.c
+    source/framework/source/fw_timestamp.c
     source/main.cpp
 
     # Headers
@@ -56,11 +60,15 @@ qt_add_executable(simulator
     source/controllers/pos_controller.hpp
     source/controllers/touchscreen_controller.hpp
     source/framework/include/framework.h
+    source/framework/include/fw_battery.h
+    source/framework/include/fw_cellular.h
     source/framework/include/fw_log.h
     source/framework/include/fw_lvgl.h
+    source/framework/include/fw_string.h
     source/framework/include/fw_thread.h
-    source/framework/include/fw_timestamp.h
     source/framework/include/fw_time.h
+    source/framework/include/fw_timestamp.h
+    source/framework/include/fw_wifi.h
     source/framework/source/simulator/binding.hpp
     source/framework/source/simulator/lv_conf.h
     source/framework/source/simulator/platf_lvgl_driver.h
