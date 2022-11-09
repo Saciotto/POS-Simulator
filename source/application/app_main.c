@@ -3,7 +3,7 @@
 #include "lvgl.h"
 #include "demos/widgets/lv_demo_widgets.h"
 
-#include "app_idle.h"
+#include "gui.h"
 
 void app_main()
 {

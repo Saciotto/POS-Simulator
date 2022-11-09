@@ -5,10 +5,10 @@
 extern "C" {
 #endif
 
-#include "fw_clock.h"
 #include "fw_log.h"
 #include "fw_lvgl.h"
 #include "fw_thread.h"
+#include "fw_timestamp.h"
 #include "fw_time.h"
 
 void app_main();

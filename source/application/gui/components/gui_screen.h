@@ -1,0 +1,9 @@
+#ifndef GUI_SCREEN_H
+#define GUI_SCREEN_H
+
+#define GUI_SCREEN_WIDTH  320
+#define GUI_SCREEN_HEIGHT 240
+
+#define GUI_STATUS_BAR_HEIGHT 20
+
+#endif // GUI_SCREEN_H

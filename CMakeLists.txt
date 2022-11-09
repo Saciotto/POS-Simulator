@@ -14,7 +14,18 @@ qt_add_resources(RESOURCES
 
 qt_add_executable(simulator
     # Sources
-    source/application/app_idle.c
+    source/application/gui/assets/img_signal_0.c
+    source/application/gui/assets/img_signal_1.c
+    source/application/gui/assets/img_signal_2.c
+    source/application/gui/assets/img_signal_3.c
+    source/application/gui/assets/img_signal_4.c
+    source/application/gui/assets/img_signal_5.c
+    source/application/gui/assets/img_wifi_0.c
+    source/application/gui/assets/img_wifi_1.c
+    source/application/gui/assets/img_wifi_2.c
+    source/application/gui/assets/img_wifi_3.c
+    source/application/gui/components/gui_status_bar.c
+    source/application/gui/views/gui_idle.c
     source/application/app_main.c
     source/components/display.cpp
     source/controllers/application_controller.cpp
@@ -23,18 +34,21 @@ qt_add_executable(simulator
     source/controllers/pos_controller.cpp
     source/controllers/touchscreen_controller.cpp
     source/framework/source/simulator/binding.cpp
-    source/framework/source/simulator/platf_clock.cpp
     source/framework/source/simulator/platf_log.cpp
     source/framework/source/simulator/platf_lvgl_driver.cpp
     source/framework/source/simulator/platf_lvgl.cpp
     source/framework/source/simulator/platf_thread.cpp
+    source/framework/source/simulator/platf_timestamp.cpp
     source/framework/source/simulator/platf_time.cpp
+    source/framework/source/fw_timestamp.c
     source/framework/source/fw_time.c
-    source/framework/source/fw_clock.c
     source/main.cpp
 
     # Headers
-    source/application/app_idle.h
+    source/application/gui/components/gui_screen.h
+    source/application/gui/components/gui_status_bar.h
+    source/application/gui/views/gui_idle.h
+    source/application/gui.h
     source/components/display.hpp
     source/controllers/application_controller.hpp
     source/controllers/display_controller.hpp
@@ -42,10 +56,10 @@ qt_add_executable(simulator
     source/controllers/pos_controller.hpp
     source/controllers/touchscreen_controller.hpp
     source/framework/include/framework.h
-    source/framework/include/fw_clock.h
     source/framework/include/fw_log.h
     source/framework/include/fw_lvgl.h
     source/framework/include/fw_thread.h
+    source/framework/include/fw_timestamp.h
     source/framework/include/fw_time.h
     source/framework/source/simulator/binding.hpp
     source/framework/source/simulator/lv_conf.h
@@ -70,7 +84,8 @@ FetchContent_MakeAvailable(lvgl)
 
 target_include_directories(simulator PRIVATE 
     "source" 
-    "source/framework/include")
+    "source/framework/include"
+    "source/application")
 
 target_link_libraries(simulator PRIVATE
     Qt6::Quick

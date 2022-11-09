@@ -5,14 +5,20 @@
 extern "C" {
 #endif
 
-typedef struct  {
-    unsigned long usec;
-    unsigned long sec;
-} fw_timestamp;
+#include <stdlib.h>
 
-void fw_get_timestamp(fw_timestamp *time);
+typedef struct {
+    int year;
+    int mon;
+    int day;
+    int hour;
+    int min;
+    int sec;
+} fw_time;
 
-long fw_timestamp_diff(const fw_timestamp *ts1, fw_timestamp *ts2);
+void fw_get_time(fw_time *time);
+
+void fw_format_time(const fw_time *time, const char *format, char *str, size_t str_size);
 
 #ifdef __cplusplus
 }

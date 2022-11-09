@@ -1,10 +1,16 @@
 #include "fw_time.h"
 
-#include <QDateTime>
+#include <QTime>
 
-void fw_get_timestamp(fw_timestamp *time)
+void fw_get_time(fw_time *time)
 {
-    qint64 ts = QDateTime::currentMSecsSinceEpoch();
-    time->sec = static_cast<unsigned long>(ts / 1000);
-    time->usec = static_cast<unsigned long>(ts % 1000) * 1000;
+    QDateTime dt = QDateTime::currentDateTime();
+    QDate date = dt.date();
+    time->year = date.year();
+    time->mon = date.month();
+    time->day = date.day();
+    QTime qtime = dt.time();
+    time->hour = qtime.hour();
+    time->min = qtime.minute();
+    time->sec = qtime.second();
 }
