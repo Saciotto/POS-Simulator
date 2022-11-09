@@ -1,2 +1,5 @@
 # Qt-Creator user files
 CMakeLists.txt.user
+
+# VSCode
+.vscode/

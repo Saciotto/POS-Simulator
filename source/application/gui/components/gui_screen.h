@@ -6,4 +6,6 @@
 
 #define GUI_STATUS_BAR_HEIGHT 20
 
+#define GUI_DEFAULT_PADDING 4
+
 #endif // GUI_SCREEN_H
