@@ -1,8 +1,8 @@
 #ifndef GUI_STATUS_BAR_H
 #define GUI_STATUS_BAR_H
 
-void gui_update_status_bar();
+#include "lvgl.h"
 
-void gui_add_status_bar();
+lv_obj_t* gui_create_status_bar(lv_obj_t* screen);
 
 #endif // GUI_STATUS_BAR_H

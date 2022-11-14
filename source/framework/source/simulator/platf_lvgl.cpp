@@ -45,9 +45,4 @@ void fw_initialize_lvgl()
     keypad_driver.type = LV_INDEV_TYPE_KEYPAD;
     keypad_driver.read_cb = driver_read_keypad;
     keypad = lv_indev_drv_register(&keypad_driver);
-
-    // Default theme
-    lv_theme_t* th = lv_theme_default_init(display, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED),
-        LV_THEME_DEFAULT_DARK, LV_FONT_DEFAULT);
-    lv_disp_set_theme(display, th);
 }

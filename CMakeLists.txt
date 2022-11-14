@@ -14,18 +14,25 @@ qt_add_resources(RESOURCES
 
 qt_add_executable(simulator
     # Sources
-    source/application/gui/assets/img_signal_0.c
-    source/application/gui/assets/img_signal_1.c
-    source/application/gui/assets/img_signal_2.c
-    source/application/gui/assets/img_signal_3.c
-    source/application/gui/assets/img_signal_4.c
-    source/application/gui/assets/img_signal_5.c
-    source/application/gui/assets/img_wifi_0.c
-    source/application/gui/assets/img_wifi_1.c
-    source/application/gui/assets/img_wifi_2.c
-    source/application/gui/assets/img_wifi_3.c
-    source/application/gui/components/gui_status_bar.c
-    source/application/gui/views/gui_idle.c
+    source/application/controllers/ctrl_idle.c
+    source/application/gui/d200/assets/font_montserrat_26.c
+    source/application/gui/d200/assets/font_roboto_18.c
+    source/application/gui/d200/assets/img_logo.c
+    source/application/gui/d200/assets/img_signal_0.c
+    source/application/gui/d200/assets/img_signal_1.c
+    source/application/gui/d200/assets/img_signal_2.c
+    source/application/gui/d200/assets/img_signal_3.c
+    source/application/gui/d200/assets/img_signal_4.c
+    source/application/gui/d200/assets/img_signal_5.c
+    source/application/gui/d200/assets/img_wifi_0.c
+    source/application/gui/d200/assets/img_wifi_1.c
+    source/application/gui/d200/assets/img_wifi_2.c
+    source/application/gui/d200/assets/img_wifi_3.c
+    source/application/gui/d200/views/gui_idle.c
+    source/application/gui/d200/views/gui_menu.c
+    source/application/gui/d200/gui_status_bar.c
+    source/application/gui/d200/gui_theme.c
+    source/application/gui/gui_engine.c
     source/application/app_main.c
     source/components/display.cpp
     source/controllers/application_controller.cpp
@@ -49,9 +56,15 @@ qt_add_executable(simulator
     source/main.cpp
 
     # Headers
-    source/application/gui/components/gui_screen.h
-    source/application/gui/components/gui_status_bar.h
-    source/application/gui/views/gui_idle.h
+    source/application/controllers/ctrl_idle.h
+    source/application/gui/d200/components/gui_dimensions.h
+    source/application/gui/d200/gui_assets.h
+    source/application/gui/d200/gui_components.h
+    source/application/gui/gui_engine.h
+    source/application/gui/gui_menu.h
+    source/application/gui/gui_status_bar.h
+    source/application/gui/gui_theme.h
+    source/application/gui/gui_views.h
     source/application/gui.h
     source/components/display.hpp
     source/controllers/application_controller.hpp
@@ -87,13 +100,18 @@ set_target_properties(simulator PROPERTIES
 
 include(FetchContent)
 set(LV_CONF_PATH ${CMAKE_SOURCE_DIR}/source/framework/source/simulator/lv_conf.h CACHE STRING "" FORCE)
-FetchContent_Declare(lvgl GIT_REPOSITORY https://github.com/lvgl/lvgl.git)
+
+FetchContent_Declare(lvgl 
+    GIT_REPOSITORY https://github.com/lvgl/lvgl.git
+    GIT_TAG 5545ffc9257808ee26eac833ec5326706cdf2007) # v8.3.3
+
 FetchContent_MakeAvailable(lvgl)
 
 target_include_directories(simulator PRIVATE 
     "source" 
     "source/framework/include"
-    "source/application")
+    "source/application"
+    "source/application/gui/d200")
 
 target_link_libraries(simulator PRIVATE
     Qt6::Quick

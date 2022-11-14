@@ -1,5 +1,5 @@
 # Qt-Creator user files
-CMakeLists.txt.user
+/CMakeLists.txt.user
 
 # VSCode
-.vscode/
+/build/

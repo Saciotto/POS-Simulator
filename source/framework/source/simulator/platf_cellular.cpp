@@ -13,4 +13,5 @@ int fw_get_cellular_signal()
 int fw_get_cellular_carrier(char *carrier, size_t sz)
 {
     fw_strcpy_s(carrier, sz, "Claro");
+    return 0;
 }

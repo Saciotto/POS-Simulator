@@ -1,5 +1,5 @@
-#ifndef GUI_SCREEN_H
-#define GUI_SCREEN_H
+#ifndef GUI_DIMENSIONS_H
+#define GUI_DIMENSIONS_H
 
 #define GUI_SCREEN_WIDTH  320
 #define GUI_SCREEN_HEIGHT 240
@@ -8,4 +8,4 @@
 
 #define GUI_DEFAULT_PADDING 4
 
-#endif // GUI_SCREEN_H
+#endif // GUI_DIMENSIONS_H
