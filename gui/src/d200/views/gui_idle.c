@@ -1,9 +1,13 @@
 #include "framework.h"
 
-#include "controllers/ctrl_idle.h"
 #include "gui.h"
+#include "gui_assets.h"
+#include "gui_components.h"
 
 #include "lvgl.h"
+
+extern void on_menu_clicked();
+extern void on_shortcut_clicked();
 
 #define BUTTON_WIDTH 100
 

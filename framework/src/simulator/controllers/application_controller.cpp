@@ -1,6 +1,6 @@
 #include "application_controller.hpp"
 
-#include "framework/source/simulator/binding.hpp"
+#include "api/binding.hpp"
 
 using namespace simulator::controllers;
 using namespace simulator::framework;

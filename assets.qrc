@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/assets">
-        <file alias="qmldir">assets/qmldir</file>
-        <file alias="KeyCodes.qml">assets/KeyCodes.qml</file>
-        <file alias="images/D200.png">assets/images/D200.png</file>
-    </qresource>
-</RCC>

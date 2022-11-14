@@ -8,7 +8,7 @@
 #include "controllers/keypad_controller.hpp"
 #include "controllers/pos_controller.hpp"
 #include "controllers/touchscreen_controller.hpp"
-#include "framework/source/simulator/binding.hpp"
+#include "api/binding.hpp"
 
 int main(int argc, char* argv[])
 {
