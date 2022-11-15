@@ -1,5 +1,5 @@
 
-add_library(gui STATIC
+pos_add_library(gui STATIC
     # Sources
     src/gui_engine.c
 
