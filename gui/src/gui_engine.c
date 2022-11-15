@@ -3,7 +3,7 @@
 #include "framework.h"
 #include "lvgl.h"
 
-#include "gui_components.h"
+#include "gui_dimensions.h"
 
 static lv_fragment_manager_t* manager = NULL;
 static lv_obj_t* status_bar = NULL;

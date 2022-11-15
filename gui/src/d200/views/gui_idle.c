@@ -2,7 +2,7 @@
 
 #include "gui.h"
 #include "gui_assets.h"
-#include "gui_components.h"
+#include "gui_dimensions.h"
 
 #include "lvgl.h"
 

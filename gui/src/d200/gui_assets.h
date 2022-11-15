@@ -5,7 +5,9 @@
 
 // fonts
 
+LV_FONT_DECLARE(font_montserrat_14)
 LV_FONT_DECLARE(font_montserrat_26)
+LV_FONT_DECLARE(font_roboto_14)
 LV_FONT_DECLARE(font_roboto_18)
 
 // images

@@ -2,7 +2,7 @@
 
 #include "framework.h"
 #include "gui_assets.h"
-#include "gui_components.h"
+#include "gui_dimensions.h"
 
 typedef struct {
     lv_obj_t* clock_label;

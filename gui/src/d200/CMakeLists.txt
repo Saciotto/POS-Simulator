@@ -1,7 +1,9 @@
 
 target_sources(gui PRIVATE 
     # Sources
+    assets/font_montserrat_14.c
     assets/font_montserrat_26.c
+    assets/font_roboto_14.c
     assets/font_roboto_18.c
     assets/img_logo.c
     assets/img_signal_0.c
@@ -20,9 +22,9 @@ target_sources(gui PRIVATE
     gui_theme.c
 
     # Headers
-    components/gui_dimensions.h
     gui_assets.h
     gui_components.h
+    gui_dimensions.h
 )
 
 target_include_directories(gui PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

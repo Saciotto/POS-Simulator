@@ -2,7 +2,8 @@
 
 #include "gui.h"
 #include "gui_assets.h"
-#include "gui_components.h"
+#include "gui_dimensions.h"
+#include "gui_theme.h"
 
 #include "lvgl.h"
 
@@ -54,6 +55,7 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
     lv_obj_t* label = lv_label_create(title);
     lv_label_set_text(label, self->data.title);
     lv_obj_align(label, LV_ALIGN_LEFT_MID, 22, 0);
+    lv_obj_add_style(label, gui_menu_title_style(), 0);
 
     // Create buttons
     const gui_menu_option *option;
@@ -68,9 +70,11 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
         lv_obj_t* label = lv_label_create(button);
         lv_label_set_text(label, option->label);
         lv_obj_align(label, LV_ALIGN_LEFT_MID, 0, 0);
+        lv_obj_add_style(label, gui_menu_label_style(), 0);
         previous_obj = button;
         padding = 0;
     }
+    
 
     return body;
 }
