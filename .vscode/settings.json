@@ -1,7 +1,6 @@
 {
     "files.associations": {
-        "*.h": "c",
-        "cstdlib": "c"
+        "*.h": "c"
     },
     "cmake.configureOnOpen": true
 }

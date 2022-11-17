@@ -4,13 +4,14 @@
 #include "gui_assets.h"
 #include "gui_dimensions.h"
 #include "gui_theme.h"
+#include "gui_components.h"
 
 #include "lvgl.h"
 
-#define BUTTON_WIDTH (GUI_SCREEN_WIDTH - 20)
-#define TITLE_HEIGHT 50
+#define BUTTON_WIDTH (GUI_SCREEN_WIDTH - GUI_DEFAULT_PADDING * 2)
 
 static void construct_menu_screen(lv_fragment_t* fragment, void* args);
+static void destruct_menu_screen(lv_fragment_t* fragment, void* args);
 static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent);
 
 typedef struct {
@@ -21,6 +22,7 @@ typedef struct {
 const lv_fragment_class_t gui_menu_screen = {
     .constructor_cb = construct_menu_screen,
     .create_obj_cb = create_menu_screen,
+    .destructor_cb = destruct_menu_screen,
     .instance_size = sizeof(menu_screen)
 };
 
@@ -34,30 +36,18 @@ static void construct_menu_screen(lv_fragment_t* fragment, void* args)
     ((menu_screen*) fragment)->data = *((gui_menu*) args);
 }
 
+static void destruct_menu_screen(lv_fragment_t* fragment, void* args)
+{
+    
+}
+
 static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
 {
     menu_screen* self = (menu_screen*) fragment;
 
-    // Create body
-    lv_obj_t* body = lv_obj_create(parent);
-    lv_obj_remove_style_all(body);
-    lv_obj_set_style_bg_opa(body, LV_OPA_100, 0);
-    lv_obj_set_size(body, GUI_SCREEN_WIDTH, GUI_SCREEN_HEIGHT - GUI_STATUS_BAR_HEIGHT);
+    lv_obj_t* body = comp_body_create(parent);
+    lv_obj_t* title = comp_title_bar_create(body, self->data.title);
 
-    // Create title
-    lv_obj_t* title = lv_obj_create(body);
-    lv_obj_remove_style_all(title);
-    lv_obj_set_style_bg_opa(title, LV_OPA_100, 0);
-    lv_obj_set_style_bg_color(title, PRIMARY_COLOR, 0);
-    lv_obj_set_size(title, GUI_SCREEN_WIDTH, TITLE_HEIGHT);
-    lv_obj_align(title, LV_ALIGN_TOP_LEFT, 0, 0);
-
-    lv_obj_t* label = lv_label_create(title);
-    lv_label_set_text(label, self->data.title);
-    lv_obj_align(label, LV_ALIGN_LEFT_MID, 22, 0);
-    lv_obj_add_style(label, gui_menu_title_style(), 0);
-
-    // Create buttons
     const gui_menu_option *option;
     lv_obj_t* previous_obj = title;
     lv_coord_t padding = (GUI_SCREEN_WIDTH - BUTTON_WIDTH) / 2;
@@ -75,7 +65,6 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
         padding = 0;
     }
     
-
     return body;
 }
 

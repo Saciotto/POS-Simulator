@@ -16,6 +16,8 @@ target_sources(gui PRIVATE
     assets/img_wifi_1.c
     assets/img_wifi_2.c
     assets/img_wifi_3.c
+    components/comp_body.c
+    components/comp_title_bar.c
     views/gui_idle.c
     views/gui_menu.c
     gui_status_bar.c
