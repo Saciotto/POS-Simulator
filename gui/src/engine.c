@@ -3,7 +3,7 @@
 #include "framework.h"
 #include "lvgl.h"
 
-#include "gui_dimensions.h"
+#include "dimensions.h"
 
 static lv_fragment_manager_t* manager = NULL;
 static lv_obj_t* status_bar = NULL;
@@ -15,12 +15,12 @@ static void delete_fragment_manager(lv_event_t* e)
     lv_fragment_manager_del(manager);
 }
 
-void gui_init_engine(lv_fragment_t *initial_screen)
+void initialize_gui_engine(lv_fragment_t *initial_screen)
 {
     lv_obj_t* scr = lv_obj_create(NULL);
     lv_scr_load(scr);
 
-    status_bar = gui_create_status_bar(scr);
+    status_bar = status_bar_create(scr);
 
     lv_obj_t* container = lv_obj_create(scr);
     lv_obj_remove_style_all(container);
@@ -36,17 +36,17 @@ void gui_init_engine(lv_fragment_t *initial_screen)
     lv_fragment_manager_replace(manager, initial_screen, &working_area);
 }
 
-void gui_inflate_screen(lv_fragment_t *screen)
+void inflate_screen(lv_fragment_t *screen)
 {
     lv_fragment_manager_push(manager, screen, &working_area);
 }
 
-void gui_close_screen()
+void close_screen()
 {
     lv_fragment_manager_pop(manager);
 }
 
-void gui_execute_app()
+void execute_app()
 {
     fw_timestamp now;
     fw_timestamp last;

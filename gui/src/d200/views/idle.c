@@ -1,8 +1,8 @@
 #include "framework.h"
 
 #include "gui.h"
-#include "gui_assets.h"
-#include "gui_dimensions.h"
+#include "assets.h"
+#include "dimensions.h"
 
 #include "lvgl.h"
 
@@ -16,12 +16,12 @@ static lv_obj_t* create_idle_screen(lv_fragment_t* self, lv_obj_t* parent);
 
 typedef struct {
     lv_fragment_t base;
-} idle_screen;
+} idle_instance;
 
-const lv_fragment_class_t gui_idle_screen = {
+const lv_fragment_class_t idle_screen = {
     .constructor_cb = construct_idle_scren,
     .create_obj_cb = create_idle_screen,
-    .instance_size = sizeof(idle_screen)
+    .instance_size = sizeof(idle_instance)
 };
 
 static void menu_clicked(lv_event_t* e)

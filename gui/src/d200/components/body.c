@@ -1,9 +1,9 @@
-#include "gui_components.h"
+#include "components.h"
 
-#include "gui_assets.h"
-#include "gui_dimensions.h"
+#include "assets.h"
+#include "dimensions.h"
 
-lv_obj_t* comp_body_create(lv_obj_t* parent)
+lv_obj_t* body_create(lv_obj_t* parent)
 {
     lv_obj_t* body = lv_obj_create(parent);
     lv_obj_remove_style_all(body);

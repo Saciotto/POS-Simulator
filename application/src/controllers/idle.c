@@ -1,4 +1,4 @@
-#include "ctrl_idle.h"
+#include "idle.h"
 
 #include "gui.h"
 
@@ -19,8 +19,8 @@ static const gui_menu main_menu = {
 
 void on_menu_clicked()
 {
-    lv_fragment_t* fragment = lv_fragment_create(&gui_menu_screen, (void*) &main_menu);
-    gui_inflate_screen(fragment);
+    lv_fragment_t* fragment = lv_fragment_create(&menu_screen, (void*) &main_menu);
+    inflate_screen(fragment);
 }
 
 void on_shortcut_clicked()

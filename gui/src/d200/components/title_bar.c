@@ -1,7 +1,7 @@
-#include "gui_components.h"
+#include "components.h"
 
-#include "gui_assets.h"
-#include "gui_dimensions.h"
+#include "assets.h"
+#include "dimensions.h"
 
 static lv_style_t *title_bar_style()
 {
@@ -14,7 +14,7 @@ static lv_style_t *title_bar_style()
     return &style;
 }
 
-lv_obj_t* comp_title_bar_create(lv_obj_t* parent, const char *message)
+lv_obj_t* title_bar_create(lv_obj_t* parent, const char *message)
 {
     lv_obj_t* title = lv_obj_create(parent);
     lv_obj_remove_style_all(title);

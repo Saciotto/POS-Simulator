@@ -1,54 +1,53 @@
 #include "framework.h"
 
+#include "assets.h"
+#include "components.h"
+#include "dimensions.h"
 #include "gui.h"
-#include "gui_assets.h"
-#include "gui_dimensions.h"
-#include "gui_theme.h"
-#include "gui_components.h"
+#include "theme.h"
 
 #include "lvgl.h"
 
 #define BUTTON_WIDTH (GUI_SCREEN_WIDTH - GUI_DEFAULT_PADDING * 2)
 
 static void construct_menu_screen(lv_fragment_t* fragment, void* args);
-static void destruct_menu_screen(lv_fragment_t* fragment, void* args);
+static void destruct_menu_screen(lv_fragment_t* fragment);
 static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent);
 
 typedef struct {
     lv_fragment_t base;
     gui_menu data;
-} menu_screen;
+} menu_instance;
 
-const lv_fragment_class_t gui_menu_screen = {
+const lv_fragment_class_t menu_screen = {
     .constructor_cb = construct_menu_screen,
     .create_obj_cb = create_menu_screen,
     .destructor_cb = destruct_menu_screen,
-    .instance_size = sizeof(menu_screen)
+    .instance_size = sizeof(menu_instance)
 };
 
 static void f1_clicked(lv_event_t* e)
 {
-    gui_close_screen();
+    close_screen();
 }
 
 static void construct_menu_screen(lv_fragment_t* fragment, void* args)
 {
-    ((menu_screen*) fragment)->data = *((gui_menu*) args);
+    ((menu_instance*) fragment)->data = *((gui_menu*) args);
 }
 
-static void destruct_menu_screen(lv_fragment_t* fragment, void* args)
+static void destruct_menu_screen(lv_fragment_t* fragment)
 {
-    
 }
 
 static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
 {
-    menu_screen* self = (menu_screen*) fragment;
+    menu_instance* self = (menu_instance*) fragment;
 
-    lv_obj_t* body = comp_body_create(parent);
-    lv_obj_t* title = comp_title_bar_create(body, self->data.title);
+    lv_obj_t* body = body_create(parent);
+    lv_obj_t* title = title_bar_create(body, self->data.title);
 
-    const gui_menu_option *option;
+    const gui_menu_option* option;
     lv_obj_t* previous_obj = title;
     lv_coord_t padding = (GUI_SCREEN_WIDTH - BUTTON_WIDTH) / 2;
 
@@ -64,7 +63,6 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
         previous_obj = button;
         padding = 0;
     }
-    
+
     return body;
 }
-

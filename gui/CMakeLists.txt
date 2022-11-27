@@ -1,15 +1,15 @@
 
 pos_add_library(gui STATIC
     # Sources
-    src/gui_engine.c
+    src/engine.c
 
     # Headers
     include/gui.h 
-    include/gui_engine.h 
-    include/gui_menu.h 
-    include/gui_status_bar.h 
-    include/gui_theme.h 
-    include/gui_views.h 
+    include/engine.h 
+    include/menu.h 
+    include/status_bar.h 
+    include/theme.h 
+    include/views.h 
 )
 
 target_include_directories(gui

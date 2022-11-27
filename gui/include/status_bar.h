@@ -3,6 +3,6 @@
 
 #include "lvgl.h"
 
-lv_obj_t* gui_create_status_bar(lv_obj_t* screen);
+lv_obj_t* status_bar_create(lv_obj_t* screen);
 
 #endif // GUI_STATUS_BAR_H

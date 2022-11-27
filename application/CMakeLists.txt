@@ -2,11 +2,11 @@ include(SetQtResources)
 
 pos_add_executable(application
     # Sources
-    src/controllers/ctrl_idle.c
-    src/app_main.c
+    src/controllers/idle.c
+    src/main.c
 
     # Headers
-    src/controllers/ctrl_idle.h
+    src/controllers/idle.h
 
     # Resources
     ${SIMULATOR_RESOURCES}
