@@ -16,7 +16,7 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent);
 
 typedef struct {
     lv_fragment_t base;
-    gui_menu data;
+    menu_data data;
 } menu_instance;
 
 const lv_fragment_class_t menu_screen = {
@@ -33,7 +33,7 @@ static void f1_clicked(lv_event_t* e)
 
 static void construct_menu_screen(lv_fragment_t* fragment, void* args)
 {
-    ((menu_instance*) fragment)->data = *((gui_menu*) args);
+    ((menu_instance*) fragment)->data = *((menu_data*) args);
 }
 
 static void destruct_menu_screen(lv_fragment_t* fragment)
@@ -47,7 +47,7 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
     lv_obj_t* body = body_create(parent);
     lv_obj_t* title = title_bar_create(body, self->data.title);
 
-    const gui_menu_option* option;
+    const menu_option* option;
     lv_obj_t* previous_obj = title;
     lv_coord_t padding = (GUI_SCREEN_WIDTH - BUTTON_WIDTH) / 2;
 

@@ -1,13 +1,10 @@
 #include "framework.h"
 
-#include "gui.h"
 #include "assets.h"
 #include "dimensions.h"
+#include "gui.h"
 
 #include "lvgl.h"
-
-extern void on_menu_clicked();
-extern void on_shortcut_clicked();
 
 #define BUTTON_WIDTH 100
 
@@ -16,6 +13,7 @@ static lv_obj_t* create_idle_screen(lv_fragment_t* self, lv_obj_t* parent);
 
 typedef struct {
     lv_fragment_t base;
+    idle_screen_data data;
 } idle_instance;
 
 const lv_fragment_class_t idle_screen = {
@@ -26,18 +24,21 @@ const lv_fragment_class_t idle_screen = {
 
 static void menu_clicked(lv_event_t* e)
 {
-    on_menu_clicked();
+    idle_instance* self = (idle_instance*) e->user_data;
+    if (self->data.on_menu_clicked != NULL)
+        self->data.on_menu_clicked();
 }
 
 static void shortcut_clicked(lv_event_t* e)
 {
-    on_shortcut_clicked();
+    idle_instance* self = (idle_instance*) e->user_data;
+    if (self->data.on_shortcut_clicked != NULL)
+        self->data.on_shortcut_clicked();
 }
 
-static void construct_idle_scren(lv_fragment_t* self, void* args)
+static void construct_idle_scren(lv_fragment_t* fragment, void* args)
 {
-    (void) self;
-    (void) args;
+    ((idle_instance*) fragment)->data = *((idle_screen_data*) args);
 }
 
 static lv_obj_t* create_idle_screen(lv_fragment_t* self, lv_obj_t* parent)
@@ -73,7 +74,7 @@ static lv_obj_t* create_idle_screen(lv_fragment_t* self, lv_obj_t* parent)
     lv_obj_t* btn_menu = lv_btn_create(body);
     lv_obj_align(btn_menu, LV_ALIGN_BOTTOM_LEFT, 6, -6);
     lv_obj_set_width(btn_menu, BUTTON_WIDTH);
-    lv_obj_add_event_cb(btn_menu, menu_clicked, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(btn_menu, menu_clicked, LV_EVENT_CLICKED, self);
     lv_obj_t* f1_label = lv_label_create(btn_menu);
     lv_label_set_text(f1_label, "F1 - Menu");
     lv_obj_center(f1_label);
@@ -82,7 +83,7 @@ static lv_obj_t* create_idle_screen(lv_fragment_t* self, lv_obj_t* parent)
     lv_obj_t* btn_f2 = lv_btn_create(body);
     lv_obj_align(btn_f2, LV_ALIGN_BOTTOM_RIGHT, -6, -6);
     lv_obj_set_width(btn_f2, BUTTON_WIDTH);
-    lv_obj_add_event_cb(btn_f2, shortcut_clicked, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(btn_f2, shortcut_clicked, LV_EVENT_CLICKED, self);
     lv_obj_t* f2_label = lv_label_create(btn_f2);
     lv_label_set_text(f2_label, "F2 - Atalhos");
     lv_obj_center(f2_label);

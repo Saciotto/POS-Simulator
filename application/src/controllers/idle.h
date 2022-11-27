@@ -1,8 +1,8 @@
 #ifndef CTRL_IDLE_H
 #define CTRL_IDLE_H
 
-void on_menu_clicked();
+#include "lvgl.h"
 
-void on_shortcut_clicked();
+lv_fragment_t *idle_create();
 
 #endif // CTRL_IDLE_H

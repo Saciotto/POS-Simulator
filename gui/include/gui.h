@@ -2,7 +2,6 @@
 #define GUI_H
 
 #include "engine.h"
-#include "menu.h"
 #include "status_bar.h"
 #include "theme.h"
 #include "views.h"
