@@ -78,3 +78,13 @@ char* fw_stracat(char* dest, const char* src, size_t destsz)
     fw_strcat_s(dest, destsz, src);
     return dest;
 }
+
+char* fw_strdup(const char *src)
+{
+    if (src == NULL)
+        return NULL;
+    size_t size = strlen(src) + 1;
+    char* copy = calloc(size, sizeof(*copy));
+    fw_strcpy_s(copy, size, src);
+    return copy;
+}

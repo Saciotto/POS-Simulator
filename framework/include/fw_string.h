@@ -13,6 +13,7 @@ int fw_strncpy_s(char *dest, size_t destsz, const char *src, size_t len);
 int fw_strncat_s(char *dest, size_t destsz, const char *src, size_t len);
 char *fw_stracpy(char *dest, const char *src, size_t destsz);
 char *fw_stracat(char *dest, const char *src, size_t destsz);
+char *fw_strdup(const char *src);
 
 #ifdef __cplusplus
 }
