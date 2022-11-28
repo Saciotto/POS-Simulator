@@ -13,27 +13,27 @@ static const idle_screen_data idle_data = {
 };
 
 static const menu_option financial_options[] = {
-    { "Estorno", ICON_NONE, NULL },
-    { "Pré-autorização", ICON_NONE, NULL },
-    { "Recarga de celular", ICON_NONE, NULL },
-    { "Venda sem cartão", ICON_NONE, NULL },
+    { "Estorno", ICON_UNDO, NULL },
+    { "Pré-autorização", ICON_HOTEL, NULL },
+    { "Recarga de celular", ICON_PHONE, NULL },
+    { "Venda sem cartão", ICON_NO_CARD, NULL },
 };
 
 static const menu_option printer_options[] = {
-    { "Reimpressão", ICON_NONE, NULL },
-    { "Relatório de vendas", ICON_NONE, NULL }
+    { "Reimpressão", ICON_RECEIPT, NULL },
+    { "Relatório de vendas", ICON_DOLLAR, NULL }
 };
 
 static const menu_option configuration_options[] = {
     { "Wi-Fi", ICON_WIFI, NULL },
-    { "Brilho", ICON_NONE, NULL },
-    { "Configurações", ICON_NONE, NULL }
+    { "Brilho", ICON_BRIGHTNESS, NULL },
+    { "Configurações", ICON_GEAR, NULL }
 };
 
 static const menu_group main_menu_group[] = {
-    { financial_options, SIZE_OF_LIST(financial_options)},
-    { printer_options, SIZE_OF_LIST(printer_options)},
-    { configuration_options, SIZE_OF_LIST(configuration_options)},
+    { financial_options, SIZE_OF_LIST(financial_options) },
+    { printer_options, SIZE_OF_LIST(printer_options) },
+    { configuration_options, SIZE_OF_LIST(configuration_options) },
 };
 
 static const menu_data main_menu = {

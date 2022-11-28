@@ -148,12 +148,18 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
             lv_obj_add_event_cb(button, f1_clicked, LV_EVENT_CLICKED, NULL);
 
             if (self->data.icons_enabled && option->icon != NULL) {
-                lv_obj_t* icon = lv_img_create(button);
+                lv_obj_t* icon_area = lv_obj_create(button);
+                lv_obj_remove_style_all(icon_area);
+                lv_obj_align(icon_area, LV_ALIGN_LEFT_MID, 0, 0);
+                lv_obj_set_width(icon_area, ICON_WIDTH);
+                lv_obj_set_height(icon_area, LV_SIZE_CONTENT);
+
+                lv_obj_t* icon = lv_img_create(icon_area);
                 lv_img_set_src(icon, option->icon);
                 lv_color_t color = TEXT_COLOR;
                 lv_obj_set_style_img_recolor(icon, color, 0);
                 lv_obj_set_style_img_recolor_opa(icon, LV_OPA_COVER, 0);
-                lv_obj_align(icon, LV_ALIGN_LEFT_MID, 0, 0);
+                lv_obj_align(icon, LV_ALIGN_CENTER, 0, 0);
             }
 
             lv_obj_t* label = lv_label_create(button);

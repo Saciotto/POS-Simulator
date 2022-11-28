@@ -25,15 +25,17 @@ static void update_battery(status_bar_instance* self)
 {
     int level = fw_get_battery_level();
     if (level <= 5)
-        lv_img_set_src(self->battery_icon, LV_SYMBOL_BATTERY_EMPTY);
-    else if (level <= 25)
-        lv_img_set_src(self->battery_icon, LV_SYMBOL_BATTERY_1);
-    else if (level <= 50)
-        lv_img_set_src(self->battery_icon, LV_SYMBOL_BATTERY_2);
-    else if (level <= 75)
-        lv_img_set_src(self->battery_icon, LV_SYMBOL_BATTERY_3);
+        lv_img_set_src(self->battery_icon, &img_battery_1);
+    else if (level <= 20)
+        lv_img_set_src(self->battery_icon, &img_battery_2);
+    else if (level <= 40)
+        lv_img_set_src(self->battery_icon, &img_battery_3);
+    else if (level <= 60)
+        lv_img_set_src(self->battery_icon, &img_battery_4);
+    else if (level <= 80)
+        lv_img_set_src(self->battery_icon, &img_battery_5);
     else
-        lv_img_set_src(self->battery_icon, LV_SYMBOL_BATTERY_FULL);
+        lv_img_set_src(self->battery_icon, &img_battery_full);
     lv_color_t color = lv_color_white();
     lv_obj_set_style_img_recolor(self->battery_icon, color, 0);
     lv_obj_set_style_img_recolor_opa(self->battery_icon, LV_OPA_COVER, 0);

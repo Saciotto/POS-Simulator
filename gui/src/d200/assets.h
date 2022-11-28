@@ -26,6 +26,22 @@ LV_IMG_DECLARE(img_signal_3)
 LV_IMG_DECLARE(img_signal_4)
 LV_IMG_DECLARE(img_signal_5)
 
+LV_IMG_DECLARE(img_battery_1)
+LV_IMG_DECLARE(img_battery_2)
+LV_IMG_DECLARE(img_battery_3)
+LV_IMG_DECLARE(img_battery_4)
+LV_IMG_DECLARE(img_battery_5)
+LV_IMG_DECLARE(img_battery_full)
+
+LV_IMG_DECLARE(img_brightness)
+LV_IMG_DECLARE(img_dollar)
+LV_IMG_DECLARE(img_gear)
+LV_IMG_DECLARE(img_hotel)
+LV_IMG_DECLARE(img_no_card)
+LV_IMG_DECLARE(img_phone)
+LV_IMG_DECLARE(img_receipt)
+LV_IMG_DECLARE(img_undo)
+
 // colors
 
 #define BACKGROUND_COLOR             lv_color_make(0xf2, 0xf2, 0xf2)
