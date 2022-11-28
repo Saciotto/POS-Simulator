@@ -17,6 +17,7 @@ target_sources(gui PRIVATE
     assets/img_wifi_2.c
     assets/img_wifi_3.c
     components/body.c
+    components/icons.c
     components/status_bar.c
     components/title_bar.c
     views/idle.c
@@ -27,6 +28,7 @@ target_sources(gui PRIVATE
     assets.h
     components.h
     dimensions.h
+    theme.h
 )
 
 target_include_directories(gui PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

@@ -121,7 +121,7 @@ lv_obj_t* status_bar_create(lv_obj_t* screen)
     lv_obj_remove_style_all(sb);
     lv_obj_set_style_bg_opa(sb, LV_OPA_100, 0);
     lv_obj_set_style_bg_color(sb, PRIMARY_DARK_COLOR, 0);
-    lv_obj_set_size(sb, GUI_SCREEN_WIDTH, GUI_STATUS_BAR_HEIGHT);
+    lv_obj_set_size(sb, SCREEN_WIDTH, STATUS_BAR_HEIGHT);
 
     lv_obj_set_style_text_color(self->battery_label, lv_color_white(), 0);
     lv_obj_set_style_text_color(self->clock_label, lv_color_white(), 0);

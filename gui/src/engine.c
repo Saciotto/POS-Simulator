@@ -25,11 +25,11 @@ void initialize_gui_engine(lv_fragment_t *initial_screen)
     lv_obj_t* container = lv_obj_create(scr);
     lv_obj_remove_style_all(container);
     lv_obj_align_to(container, status_bar, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 0);
-    lv_obj_set_size(container, GUI_SCREEN_WIDTH, GUI_SCREEN_HEIGHT - GUI_STATUS_BAR_HEIGHT);
+    lv_obj_set_size(container, SCREEN_WIDTH, SCREEN_HEIGHT - STATUS_BAR_HEIGHT);
 
     working_area = lv_obj_create(container);
     lv_obj_remove_style_all(working_area);
-    lv_obj_set_size(working_area, GUI_SCREEN_WIDTH, GUI_SCREEN_HEIGHT - GUI_STATUS_BAR_HEIGHT);
+    lv_obj_set_size(working_area, SCREEN_WIDTH, SCREEN_HEIGHT - STATUS_BAR_HEIGHT);
 
     manager = lv_fragment_manager_create(NULL);
     lv_obj_add_event_cb(scr, delete_fragment_manager, LV_EVENT_DELETE, manager);

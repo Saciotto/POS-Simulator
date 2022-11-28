@@ -4,10 +4,10 @@ pos_add_library(gui STATIC
     src/engine.c
 
     # Headers
-    include/gui.h 
     include/engine.h 
+    include/gui.h 
+    include/icons.h 
     include/status_bar.h 
-    include/theme.h 
     include/views.h 
 )
 

@@ -83,7 +83,7 @@ static lv_obj_t* create_idle_screen(lv_fragment_t* self, lv_obj_t* parent)
     lv_obj_add_style(msg, &msg_style, 0);
     lv_label_set_text(msg, "Digite o valor, insira ou passe o cartão");
     lv_obj_set_style_text_align(msg, LV_TEXT_ALIGN_CENTER, 0);
-    lv_obj_set_width(msg, GUI_SCREEN_WIDTH - 10);
+    lv_obj_set_width(msg, SCREEN_WIDTH - 10);
     lv_obj_align_to(msg, logo, LV_ALIGN_OUT_BOTTOM_MID, 0, 10);
 
     // F1

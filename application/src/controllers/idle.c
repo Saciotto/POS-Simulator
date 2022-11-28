@@ -2,6 +2,8 @@
 
 #include "gui.h"
 
+#define SIZE_OF_LIST(x) (sizeof(x) / sizeof(x[0]))
+
 static void on_menu_clicked();
 static void on_shortcut_clicked();
 
@@ -10,19 +12,34 @@ static const idle_screen_data idle_data = {
     .on_shortcut_clicked = on_shortcut_clicked
 };
 
-static const menu_option main_menu_options[] = {
-    { "Reimprimir", NULL },
-    { "Estorno", NULL },
-    { "Pré-autorização", NULL },
-    { "Confirmar pré-autorização", NULL },
-    { "Cancelar pré-autorização", NULL },
-    { "Configurações", NULL },
-    { NULL, NULL }
+static const menu_option financial_options[] = {
+    { "Estorno", ICON_NONE, NULL },
+    { "Pré-autorização", ICON_NONE, NULL },
+    { "Recarga de celular", ICON_NONE, NULL },
+    { "Venda sem cartão", ICON_NONE, NULL },
+};
+
+static const menu_option printer_options[] = {
+    { "Reimpressão", ICON_NONE, NULL },
+    { "Relatório de vendas", ICON_NONE, NULL }
+};
+
+static const menu_option configuration_options[] = {
+    { "Wi-Fi", ICON_WIFI, NULL },
+    { "Brilho", ICON_NONE, NULL },
+    { "Configurações", ICON_NONE, NULL }
+};
+
+static const menu_group main_menu_group[] = {
+    { financial_options, SIZE_OF_LIST(financial_options)},
+    { printer_options, SIZE_OF_LIST(printer_options)},
+    { configuration_options, SIZE_OF_LIST(configuration_options)},
 };
 
 static const menu_data main_menu = {
-    .title = "Título do menu",
-    .options = main_menu_options
+    .title = NULL,
+    .groups = main_menu_group,
+    .no_groups = SIZE_OF_LIST(main_menu_group)
 };
 
 static void on_menu_clicked()

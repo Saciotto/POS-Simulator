@@ -3,6 +3,8 @@
 
 #include "lvgl.h"
 
+void initialize_theme();
+
 void initialize_gui_engine(lv_fragment_t* initial_screen);
 
 void inflate_screen(lv_fragment_t* screen);
