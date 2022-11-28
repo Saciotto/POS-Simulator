@@ -6,9 +6,13 @@
 #include "gui.h"
 #include "theme.h"
 
+#include <stdio.h>
+
 #define GROUPS_SEPARATION 10
 #define SEPARATOR_PADDING 20
 #define ICON_WIDTH        30
+
+typedef void (*on_clicked_cb)(); 
 
 static void construct_menu_screen(lv_fragment_t* fragment, void* args);
 static void destruct_menu_screen(lv_fragment_t* fragment);
@@ -17,7 +21,8 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent);
 typedef struct {
     char* label;
     const lv_img_dsc_t* icon;
-    void (*on_clicked)();
+    on_clicked_cb on_clicked;
+    int shortcut;
 } menu_option_priv;
 
 typedef struct {
@@ -30,6 +35,7 @@ typedef struct {
     menu_group_priv* groups;
     size_t no_groups;
     bool icons_enabled;
+    on_clicked_cb on_shortcut_clicked[9];
 } menu_data_priv;
 
 typedef struct {
@@ -44,15 +50,19 @@ const lv_fragment_class_t menu_screen = {
     .instance_size = sizeof(menu_instance)
 };
 
-static void f1_clicked(lv_event_t* e)
+static void menu_clicked(lv_event_t* e)
 {
-    close_screen();
+    on_clicked_cb option_clicked_cb = (on_clicked_cb) e->user_data;
+    if (option_clicked_cb != NULL)
+        option_clicked_cb();
 }
 
 static void construct_menu_screen(lv_fragment_t* fragment, void* args)
 {
     const menu_data* orig = (menu_data*) args;
     menu_data_priv* self = &((menu_instance*) fragment)->data;
+    memset(self, 0, sizeof(*self));
+    int count = 0;
 
     self->icons_enabled = false;
     self->title = fw_strdup(orig->title);
@@ -72,6 +82,10 @@ static void construct_menu_screen(lv_fragment_t* fragment, void* args)
             if (option->icon != NULL)
                 self->icons_enabled = true;
             option->on_clicked = orig_option->on_clicked;
+            if (count < 9) {
+                option->shortcut = count + 1;
+                self->on_shortcut_clicked[count++] = option->on_clicked;
+            }
         }
     }
 }
@@ -145,7 +159,7 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
                 lv_obj_align_to(button, separator, LV_ALIGN_OUT_BOTTOM_LEFT, -SEPARATOR_PADDING, 0);
             }
             lv_obj_set_width(button, button_width);
-            lv_obj_add_event_cb(button, f1_clicked, LV_EVENT_CLICKED, NULL);
+            lv_obj_add_event_cb(button, menu_clicked, LV_EVENT_CLICKED, option->on_clicked);
 
             if (self->data.icons_enabled && option->icon != NULL) {
                 lv_obj_t* icon_area = lv_obj_create(button);
@@ -167,6 +181,15 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
             lv_coord_t label_offset = self->data.icons_enabled ? ICON_WIDTH : 0;
             lv_obj_align(label, LV_ALIGN_LEFT_MID, label_offset, 0);
             lv_obj_add_style(label, regular_text_style(), 0);
+
+            if (option->shortcut != 0) {
+                lv_obj_t* shortcut_label = lv_label_create(button);
+                char shortcut[20];
+                snprintf(shortcut, sizeof(shortcut), "(%d)", option->shortcut);
+                lv_label_set_text(shortcut_label, shortcut);
+                lv_obj_align(shortcut_label, LV_ALIGN_RIGHT_MID, 0, 0);
+                lv_obj_add_style(shortcut_label, regular_text_style(), 0);
+            }
             previous_obj = button;
         }
         vertical_margin = GROUPS_SEPARATION;
