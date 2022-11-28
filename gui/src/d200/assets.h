@@ -28,12 +28,17 @@ LV_IMG_DECLARE(img_signal_5)
 
 // colors
 
-#define PRIMARY_COLOR       lv_color_make(0xb3, 0x9d, 0xdb)
-#define PRIMARY_DARK_COLOR  lv_color_make(0x83, 0x6f, 0xa9)
-#define PRIMARY_LIGHT_COLOR lv_color_make(0xe6, 0xce, 0xff)
+#define BACKGROUND_COLOR             lv_color_make(0xf2, 0xf2, 0xf2)
+#define ALTERNATIVE_BACKGROUND_COLOR lv_color_make(0xff, 0xff, 0xff)
 
-#define SECONDARY_COLOR       lv_color_make(0x79, 0x86, 0xcb)
-#define SECONDARY_DARK_COLOR  lv_color_make(0x49, 0x59, 0x9a)
-#define SECONDARY_LIGHT_COLOR lv_color_make(0xaa, 0xb6, 0xfe)
+#define TEXT_COLOR lv_color_make(0x00, 0x00, 0x00)
+
+#define PRIMARY_COLOR       lv_color_make(0x79, 0x86, 0xcb)
+#define PRIMARY_DARK_COLOR  lv_color_make(0x49, 0x59, 0x9a)
+#define PRIMARY_LIGHT_COLOR lv_color_make(0xaa, 0xb6, 0xfe)
+
+#define SECONDARY_COLOR       lv_color_make(0xb3, 0x9d, 0xdb)
+#define SECONDARY_DARK_COLOR  lv_color_make(0x83, 0x6f, 0xa9)
+#define SECONDARY_LIGHT_COLOR lv_color_make(0xe6, 0xce, 0xff)
 
 #endif // GUI_ASSETS_H

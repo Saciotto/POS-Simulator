@@ -1,12 +1,13 @@
 #include "framework.h"
 
 #include "assets.h"
+#include "components.h"
 #include "dimensions.h"
 #include "gui.h"
 
 #include "lvgl.h"
 
-#define BUTTON_WIDTH 100
+#define BUTTON_WIDTH 125
 
 static void construct_idle_scren(lv_fragment_t* self, void* args);
 static lv_obj_t* create_idle_screen(lv_fragment_t* self, lv_obj_t* parent);
@@ -41,15 +42,30 @@ static void construct_idle_scren(lv_fragment_t* fragment, void* args)
     ((idle_instance*) fragment)->data = *((idle_screen_data*) args);
 }
 
+static lv_obj_t *idle_button_create(lv_obj_t* parent, const char *message)
+{
+    static lv_style_t style;
+    lv_style_init(&style);
+    lv_style_set_bg_color(&style, BACKGROUND_COLOR);
+    lv_style_set_border_color(&style, PRIMARY_COLOR);
+    lv_style_set_text_color(&style, TEXT_COLOR);
+    lv_style_set_border_width(&style, 2);
+    lv_style_set_radius(&style, 20);
+
+    lv_obj_t* btn = lv_btn_create(parent);
+    lv_obj_set_width(btn, BUTTON_WIDTH);
+    lv_obj_add_style(btn, &style, 0);
+
+    lv_obj_t* label = lv_label_create(btn);
+    lv_label_set_text(label, message);
+    lv_obj_center(label);
+    return btn;
+}
+
 static lv_obj_t* create_idle_screen(lv_fragment_t* self, lv_obj_t* parent)
 {
-    (void) self;
-
     // Create body
-    lv_obj_t* body = lv_obj_create(parent);
-    lv_obj_remove_style_all(body);
-    lv_obj_set_style_bg_opa(body, LV_OPA_100, 0);
-    lv_obj_set_size(body, GUI_SCREEN_WIDTH, GUI_SCREEN_HEIGHT - GUI_STATUS_BAR_HEIGHT);
+    lv_obj_t* body = body_create(parent);
 
     // Create logo
     lv_obj_t* logo = lv_img_create(body);
@@ -71,22 +87,14 @@ static lv_obj_t* create_idle_screen(lv_fragment_t* self, lv_obj_t* parent)
     lv_obj_align_to(msg, logo, LV_ALIGN_OUT_BOTTOM_MID, 0, 10);
 
     // F1
-    lv_obj_t* btn_menu = lv_btn_create(body);
-    lv_obj_align(btn_menu, LV_ALIGN_BOTTOM_LEFT, 6, -6);
-    lv_obj_set_width(btn_menu, BUTTON_WIDTH);
+    lv_obj_t* btn_menu = idle_button_create(body, "F1 - Menu");
     lv_obj_add_event_cb(btn_menu, menu_clicked, LV_EVENT_CLICKED, self);
-    lv_obj_t* f1_label = lv_label_create(btn_menu);
-    lv_label_set_text(f1_label, "F1 - Menu");
-    lv_obj_center(f1_label);
+    lv_obj_align(btn_menu, LV_ALIGN_BOTTOM_LEFT, 6, -6);
 
     // F2
-    lv_obj_t* btn_f2 = lv_btn_create(body);
-    lv_obj_align(btn_f2, LV_ALIGN_BOTTOM_RIGHT, -6, -6);
-    lv_obj_set_width(btn_f2, BUTTON_WIDTH);
-    lv_obj_add_event_cb(btn_f2, shortcut_clicked, LV_EVENT_CLICKED, self);
-    lv_obj_t* f2_label = lv_label_create(btn_f2);
-    lv_label_set_text(f2_label, "F2 - Atalhos");
-    lv_obj_center(f2_label);
-
+    lv_obj_t* btn_shortcut = idle_button_create(body, "F2 - Atalhos");
+    lv_obj_add_event_cb(btn_shortcut, shortcut_clicked, LV_EVENT_CLICKED, self);
+    lv_obj_align(btn_shortcut, LV_ALIGN_BOTTOM_RIGHT, -6, -6);
+    
     return body;
 }
