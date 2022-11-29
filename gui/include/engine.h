@@ -11,6 +11,8 @@ void inflate_screen(lv_fragment_t *screen);
 
 void close_screen();
 
+void close_to_idle();
+
 void execute_app();
 
 void close_app();

@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "gui.h"
 
-#include "controllers/idle.h"
+#include "controllers.h"
 
 void app_main()
 {

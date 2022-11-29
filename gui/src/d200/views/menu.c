@@ -1,8 +1,9 @@
-#include "framework.h"
+#include "views.h"
 
 #include "assets.h"
 #include "components.h"
 #include "dimensions.h"
+#include "framework.h"
 #include "gui.h"
 #include "theme.h"
 
@@ -37,6 +38,8 @@ typedef struct {
     bool icons_enabled;
     on_clicked_cb on_shortcut_clicked[9];
     lv_group_t *navigation_group;
+    void (*on_back_clicked)();
+    void (*on_cancel_clicked)();
 } menu_config_priv;
 
 typedef struct {
@@ -64,7 +67,8 @@ static void on_key_pressed(lv_event_t *e)
     uint32_t key = lv_indev_get_key(lv_indev_get_act());
     if (key >= '1' && key <= '9') {
         key -= '1';
-        config->on_shortcut_clicked[key]();
+        if (config->on_shortcut_clicked[key] != NULL)
+            config->on_shortcut_clicked[key]();
         return;
     } else if (key == KEY_PREVIOUS) {
         lv_group_focus_prev(config->navigation_group);
@@ -73,6 +77,12 @@ static void on_key_pressed(lv_event_t *e)
     } else if (key == KEY_ENTER) {
         lv_obj_t *obj = lv_group_get_focused(config->navigation_group);
         lv_event_send(obj, LV_EVENT_CLICKED, NULL);
+    } else if (key == KEY_BACK) {
+        if (config->on_back_clicked)
+            config->on_back_clicked();
+    } else if (key == KEY_CANCEL) {
+        if (config->on_cancel_clicked)
+            config->on_cancel_clicked();
     }
 }
 
@@ -83,6 +93,8 @@ static void construct_menu_screen(lv_fragment_t *fragment, void *args)
     memset(config, 0, sizeof(*config));
     int count = 0;
 
+    config->on_back_clicked = orig->on_back_clicked;
+    config->on_cancel_clicked = orig->on_cancel_clicked;
     config->icons_enabled = false;
     config->title = fw_strdup(orig->title);
     config->no_groups = orig->no_groups;

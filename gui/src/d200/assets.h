@@ -13,6 +13,7 @@ LV_FONT_DECLARE(font_roboto_18)
 // images
 
 LV_IMG_DECLARE(img_logo)
+LV_IMG_DECLARE(img_working)
 
 LV_IMG_DECLARE(img_wifi_0)
 LV_IMG_DECLARE(img_wifi_1)
@@ -41,6 +42,7 @@ LV_IMG_DECLARE(img_no_card)
 LV_IMG_DECLARE(img_phone)
 LV_IMG_DECLARE(img_receipt)
 LV_IMG_DECLARE(img_undo)
+
 
 // colors
 

@@ -30,11 +30,14 @@ target_sources(gui PRIVATE
     assets/img_wifi_1.c
     assets/img_wifi_2.c
     assets/img_wifi_3.c
+    assets/img_working.c
     components/body.c
     components/icons.c
     components/status_bar.c
     components/title_bar.c
+    views/amount.c
     views/idle.c
+    views/in_progress.c
     views/menu.c
     theme.c
 

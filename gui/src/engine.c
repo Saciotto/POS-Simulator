@@ -68,6 +68,14 @@ void close_screen()
     lv_fragment_manager_pop(manager);
 }
 
+void close_to_idle()
+{
+    size_t sz = lv_fragment_manager_get_stack_size(manager);
+    while (sz-- > 1) {
+        lv_fragment_manager_pop(manager);
+    }
+}
+
 void execute_app()
 {
     fw_timestamp now;
