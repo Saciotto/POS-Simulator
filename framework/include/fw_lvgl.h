@@ -5,7 +5,13 @@
 extern "C" {
 #endif
 
+#include "lvgl.h"
+
 void fw_initialize_lvgl();
+
+lv_disp_t *fw_display_indev();
+lv_indev_t *fw_touchscreen_indev();
+lv_indev_t *fw_keypad_indev();
 
 #ifdef __cplusplus
 }

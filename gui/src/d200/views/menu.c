@@ -12,11 +12,11 @@
 #define SEPARATOR_PADDING 20
 #define ICON_WIDTH        30
 
-typedef void (*on_clicked_cb)(); 
-
 static void construct_menu_screen(lv_fragment_t* fragment, void* args);
 static void destruct_menu_screen(lv_fragment_t* fragment);
 static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent);
+
+typedef void (*on_clicked_cb)();
 
 typedef struct {
     char* label;
@@ -36,6 +36,7 @@ typedef struct {
     size_t no_groups;
     bool icons_enabled;
     on_clicked_cb on_shortcut_clicked[9];
+    lv_group_t* navigation_group;
 } menu_data_priv;
 
 typedef struct {
@@ -50,11 +51,29 @@ const lv_fragment_class_t menu_screen = {
     .instance_size = sizeof(menu_instance)
 };
 
-static void menu_clicked(lv_event_t* e)
+static void on_menu_clicked(lv_event_t* e)
 {
     on_clicked_cb option_clicked_cb = (on_clicked_cb) e->user_data;
     if (option_clicked_cb != NULL)
         option_clicked_cb();
+}
+
+static void on_key_pressed(lv_event_t* e)
+{
+    menu_data_priv* self = (menu_data_priv*) e->user_data;
+    uint32_t key = lv_indev_get_key(lv_indev_get_act());
+    if (key >= '1' && key <= '9') {
+        key -= '1';
+        self->on_shortcut_clicked[key]();
+        return;
+    } else if (key == KEY_PREVIOUS) {
+        lv_group_focus_prev(self->navigation_group);
+    } else if (key == KEY_NEXT) {
+        lv_group_focus_next(self->navigation_group);
+    } else if (key == KEY_ENTER) {
+        lv_obj_t* obj = lv_group_get_focused(self->navigation_group);
+        lv_event_send(obj, LV_EVENT_CLICKED, NULL);
+    }
 }
 
 static void construct_menu_screen(lv_fragment_t* fragment, void* args)
@@ -88,6 +107,7 @@ static void construct_menu_screen(lv_fragment_t* fragment, void* args)
             }
         }
     }
+    self->navigation_group = lv_group_create();
 }
 
 static void destruct_menu_screen(lv_fragment_t* fragment)
@@ -104,6 +124,7 @@ static void destruct_menu_screen(lv_fragment_t* fragment)
     }
     free(self->title);
     free(self->groups);
+    lv_group_del(self->navigation_group);
 }
 
 static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
@@ -142,10 +163,11 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
             const menu_option_priv* option = &group->options[option_idx];
 
             lv_obj_t* button = lv_btn_create(menu_area);
-
             lv_obj_remove_style_all(button);
             lv_obj_add_style(button, menu_item_style(), LV_STATE_DEFAULT);
             lv_obj_add_style(button, pressed_style(), LV_STATE_PRESSED);
+            lv_obj_add_style(button, focused_style(), LV_STATE_FOCUSED);
+            lv_group_add_obj(self->data.navigation_group, button);
 
             if (previous_obj == NULL) {
                 lv_obj_align(button, LV_ALIGN_TOP_LEFT, 0, 0);
@@ -159,7 +181,7 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
                 lv_obj_align_to(button, separator, LV_ALIGN_OUT_BOTTOM_LEFT, -SEPARATOR_PADDING, 0);
             }
             lv_obj_set_width(button, button_width);
-            lv_obj_add_event_cb(button, menu_clicked, LV_EVENT_CLICKED, option->on_clicked);
+            lv_obj_add_event_cb(button, on_menu_clicked, LV_EVENT_CLICKED, option->on_clicked);
 
             if (self->data.icons_enabled && option->icon != NULL) {
                 lv_obj_t* icon_area = lv_obj_create(button);
@@ -195,5 +217,9 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
         vertical_margin = GROUPS_SEPARATION;
         previous_container = menu_area;
     }
+
+    lv_obj_add_event_cb(body, on_key_pressed, LV_EVENT_KEY, &self->data);
+    lv_obj_set_scrollbar_mode(body, LV_SCROLLBAR_MODE_AUTO);
+    lv_obj_set_scroll_snap_y(body, LV_SCROLL_SNAP_NONE);
     return body;
 }

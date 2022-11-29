@@ -57,4 +57,14 @@ LV_IMG_DECLARE(img_undo)
 #define SECONDARY_DARK_COLOR  lv_color_make(0x83, 0x6f, 0xa9)
 #define SECONDARY_LIGHT_COLOR lv_color_make(0xe6, 0xce, 0xff)
 
+// keys
+
+#define KEY_ENTER     100
+#define KEY_BACK      101
+#define KEY_CANCEL    102
+#define KEY_MAIN_MENU 201
+#define KEY_SHORTCUT  202
+#define KEY_NEXT      202
+#define KEY_PREVIOUS  201
+
 #endif // GUI_ASSETS_H

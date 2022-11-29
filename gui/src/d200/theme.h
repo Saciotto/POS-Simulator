@@ -7,6 +7,8 @@ lv_style_t* regular_text_style();
 
 lv_style_t* pressed_style();
 
+lv_style_t* focused_style();
+
 lv_style_t* menu_container_style();
 
 lv_style_t* menu_item_style();

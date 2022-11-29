@@ -8,6 +8,7 @@
 static lv_fragment_manager_t* manager = NULL;
 static lv_obj_t* status_bar = NULL;
 static lv_obj_t* working_area = NULL;
+static lv_group_t* keypad_group = NULL;
 
 static void delete_fragment_manager(lv_event_t* e)
 {
@@ -15,7 +16,14 @@ static void delete_fragment_manager(lv_event_t* e)
     lv_fragment_manager_del(manager);
 }
 
-void initialize_gui_engine(lv_fragment_t *initial_screen)
+static void on_key_pressed(lv_event_t* e)
+{
+    lv_fragment_t* top = lv_fragment_manager_get_top(manager);
+    if (top != NULL && top->obj != NULL)
+        lv_event_send(top->obj, LV_EVENT_KEY, e);
+}
+
+void initialize_gui_engine(lv_fragment_t* initial_screen)
 {
     lv_obj_t* scr = lv_obj_create(NULL);
     lv_scr_load(scr);
@@ -33,10 +41,15 @@ void initialize_gui_engine(lv_fragment_t *initial_screen)
 
     manager = lv_fragment_manager_create(NULL);
     lv_obj_add_event_cb(scr, delete_fragment_manager, LV_EVENT_DELETE, manager);
-    lv_fragment_manager_replace(manager, initial_screen, &working_area);
+    inflate_screen(initial_screen);
+
+    keypad_group = lv_group_create();
+    lv_group_add_obj(keypad_group, scr);
+    lv_indev_set_group(fw_keypad_indev(), keypad_group);
+    lv_obj_add_event_cb(scr, on_key_pressed, LV_EVENT_KEY, NULL);
 }
 
-void inflate_screen(lv_fragment_t *screen)
+void inflate_screen(lv_fragment_t* screen)
 {
     lv_fragment_manager_push(manager, screen, &working_area);
 }

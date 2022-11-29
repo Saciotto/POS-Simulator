@@ -46,3 +46,18 @@ void fw_initialize_lvgl()
     keypad_driver.read_cb = driver_read_keypad;
     keypad = lv_indev_drv_register(&keypad_driver);
 }
+
+lv_disp_t *fw_display_indev()
+{
+    return display;
+}
+
+lv_indev_t *fw_touchscreen_indev()
+{
+    return touchscreen;
+}
+
+lv_indev_t *fw_keypad_indev()
+{
+    return keypad;
+}

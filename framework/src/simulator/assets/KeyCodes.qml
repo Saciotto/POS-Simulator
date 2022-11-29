@@ -4,9 +4,9 @@ import QtQuick
 
 Item {
     // Action keys
-    readonly property int enter: 10;
-    readonly property int back: 11;
-    readonly property int cancel: 12;
+    readonly property int enter: 100;
+    readonly property int back: 101;
+    readonly property int cancel: 102;
 
     // Numpad
     readonly property int num0: '0'.codePointAt(0);
@@ -21,6 +21,6 @@ Item {
     readonly property int num9: '9'.codePointAt(0);
 
     // D200 keys
-    readonly property int d200F1: 101
-    readonly property int d200F2: 102
+    readonly property int d200F1: 201
+    readonly property int d200F2: 202
 }

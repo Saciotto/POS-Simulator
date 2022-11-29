@@ -12,6 +12,7 @@ static lv_style_t menu_container;
 static lv_style_t menu_item;
 static lv_style_t menu_separator;
 static lv_style_t pressed;
+static lv_style_t focused;
 
 static void set_default_theme()
 {
@@ -31,6 +32,10 @@ static void initialize_events_effects()
     lv_style_init(&pressed);
     lv_style_set_bg_color(&pressed, PRIMARY_COLOR);
     lv_style_set_bg_opa(&pressed, LV_OPA_30);
+
+    lv_style_init(&focused);
+    lv_style_set_bg_color(&focused, PRIMARY_COLOR);
+    lv_style_set_bg_opa(&focused, LV_OPA_30);
 }
 
 static void initialize_menu_style()
@@ -71,6 +76,11 @@ lv_style_t* regular_text_style()
 lv_style_t* pressed_style()
 {
     return &pressed;
+}
+
+lv_style_t* focused_style()
+{
+    return &focused;
 }
 
 lv_style_t* menu_container_style()

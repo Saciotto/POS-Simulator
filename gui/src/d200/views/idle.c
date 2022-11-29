@@ -9,7 +9,7 @@
 
 #define BUTTON_WIDTH 125
 
-static void construct_idle_scren(lv_fragment_t* self, void* args);
+static void construct_idle_screen(lv_fragment_t* self, void* args);
 static lv_obj_t* create_idle_screen(lv_fragment_t* self, lv_obj_t* parent);
 
 typedef struct {
@@ -18,7 +18,7 @@ typedef struct {
 } idle_instance;
 
 const lv_fragment_class_t idle_screen = {
-    .constructor_cb = construct_idle_scren,
+    .constructor_cb = construct_idle_screen,
     .create_obj_cb = create_idle_screen,
     .instance_size = sizeof(idle_instance)
 };
@@ -37,7 +37,16 @@ static void shortcut_clicked(lv_event_t* e)
         self->data.on_shortcut_clicked();
 }
 
-static void construct_idle_scren(lv_fragment_t* fragment, void* args)
+static void on_key_pressed(lv_event_t* e)
+{
+    uint32_t key = lv_indev_get_key(lv_indev_get_act());
+    if (key == KEY_MAIN_MENU) 
+        menu_clicked(e);
+    else if (key == KEY_SHORTCUT)
+        shortcut_clicked(e);
+}
+
+static void construct_idle_screen(lv_fragment_t* fragment, void* args)
 {
     ((idle_instance*) fragment)->data = *((idle_screen_data*) args);
 }
@@ -95,6 +104,7 @@ static lv_obj_t* create_idle_screen(lv_fragment_t* self, lv_obj_t* parent)
     lv_obj_t* btn_shortcut = idle_button_create(body, "F2 - Atalhos");
     lv_obj_add_event_cb(btn_shortcut, shortcut_clicked, LV_EVENT_CLICKED, self);
     lv_obj_align(btn_shortcut, LV_ALIGN_BOTTOM_RIGHT, -6, -6);
-    
+
+    lv_obj_add_event_cb(body, on_key_pressed, LV_EVENT_KEY, self);
     return body;
 }
