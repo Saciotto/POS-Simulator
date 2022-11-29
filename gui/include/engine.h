@@ -13,4 +13,6 @@ void close_screen();
 
 void execute_app();
 
+void close_app();
+
 #endif // GUI_ENGINE_H

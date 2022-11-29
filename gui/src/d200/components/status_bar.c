@@ -37,8 +37,8 @@ static void update_battery(status_bar_instance *self)
     else
         lv_img_set_src(self->battery_icon, &img_battery_full);
     lv_color_t color = lv_color_white();
-    lv_obj_set_style_img_recolor(self->battery_icon, color, 0);
-    lv_obj_set_style_img_recolor_opa(self->battery_icon, LV_OPA_COVER, 0);
+    lv_obj_set_style_img_recolor(self->battery_icon, color, LV_STATE_DEFAULT);
+    lv_obj_set_style_img_recolor_opa(self->battery_icon, LV_OPA_COVER, LV_STATE_DEFAULT);
 
     char text[20];
     snprintf(text, sizeof(text), "%d%%", level);
@@ -61,8 +61,8 @@ static void update_cellular(status_bar_instance *self)
     else
         lv_img_set_src(self->cellular_icon, &img_signal_5);
     lv_color_t color = lv_color_white();
-    lv_obj_set_style_img_recolor(self->cellular_icon, color, 0);
-    lv_obj_set_style_img_recolor_opa(self->cellular_icon, LV_OPA_COVER, 0);
+    lv_obj_set_style_img_recolor(self->cellular_icon, color, LV_STATE_DEFAULT);
+    lv_obj_set_style_img_recolor_opa(self->cellular_icon, LV_OPA_COVER, LV_STATE_DEFAULT);
 }
 
 static void update_wifi(status_bar_instance *self)
@@ -77,15 +77,15 @@ static void update_wifi(status_bar_instance *self)
     else
         lv_img_set_src(self->wifi_icon, &img_wifi_3);
     lv_color_t color = lv_color_white();
-    lv_obj_set_style_img_recolor(self->wifi_icon, color, 0);
-    lv_obj_set_style_img_recolor_opa(self->wifi_icon, LV_OPA_COVER, 0);
+    lv_obj_set_style_img_recolor(self->wifi_icon, color, LV_STATE_DEFAULT);
+    lv_obj_set_style_img_recolor_opa(self->wifi_icon, LV_OPA_COVER, LV_STATE_DEFAULT);
 }
 
 static void update_relative_positions(status_bar_instance *self)
 {
-    lv_obj_align_to(self->battery_label, self->battery_icon, LV_ALIGN_OUT_LEFT_MID, -GUI_DEFAULT_PADDING, 0);
-    lv_obj_align_to(self->cellular_icon, self->battery_label, LV_ALIGN_OUT_LEFT_MID, -GUI_DEFAULT_PADDING, 0);
-    lv_obj_align_to(self->wifi_icon, self->cellular_icon, LV_ALIGN_OUT_LEFT_MID, -GUI_DEFAULT_PADDING, 0);
+    lv_obj_align_to(self->battery_label, self->battery_icon, LV_ALIGN_OUT_LEFT_MID, -DEFAULT_PADDING, 0);
+    lv_obj_align_to(self->cellular_icon, self->battery_label, LV_ALIGN_OUT_LEFT_MID, -DEFAULT_PADDING, 0);
+    lv_obj_align_to(self->wifi_icon, self->cellular_icon, LV_ALIGN_OUT_LEFT_MID, -DEFAULT_PADDING, 0);
 }
 
 static void update_status_bar(status_bar_instance *self)
@@ -121,17 +121,17 @@ lv_obj_t *status_bar_create(lv_obj_t *screen)
     self->wifi_icon = lv_img_create(sb);
 
     lv_obj_remove_style_all(sb);
-    lv_obj_set_style_bg_opa(sb, LV_OPA_100, 0);
-    lv_obj_set_style_bg_color(sb, PRIMARY_DARK_COLOR, 0);
+    lv_obj_set_style_bg_opa(sb, LV_OPA_100, LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(sb, PRIMARY_DARK_COLOR, LV_STATE_DEFAULT);
     lv_obj_set_size(sb, SCREEN_WIDTH, STATUS_BAR_HEIGHT);
 
-    lv_obj_set_style_text_color(self->battery_label, lv_color_white(), 0);
-    lv_obj_set_style_text_color(self->clock_label, lv_color_white(), 0);
+    lv_obj_set_style_text_color(self->battery_label, lv_color_white(), LV_STATE_DEFAULT);
+    lv_obj_set_style_text_color(self->clock_label, lv_color_white(), LV_STATE_DEFAULT);
 
-    lv_obj_set_style_text_align(self->battery_label, LV_TEXT_ALIGN_RIGHT, 0);
-    lv_obj_set_style_text_align(self->clock_label, LV_ALIGN_LEFT_MID, 0);
-    lv_obj_align(self->battery_icon, LV_ALIGN_RIGHT_MID, -GUI_DEFAULT_PADDING, 0);
-    lv_obj_align(self->clock_label, LV_ALIGN_LEFT_MID, GUI_DEFAULT_PADDING, 0);
+    lv_obj_set_style_text_align(self->battery_label, LV_TEXT_ALIGN_RIGHT, LV_STATE_DEFAULT);
+    lv_obj_set_style_text_align(self->clock_label, LV_ALIGN_LEFT_MID, LV_STATE_DEFAULT);
+    lv_obj_align(self->battery_icon, LV_ALIGN_RIGHT_MID, -DEFAULT_PADDING, 0);
+    lv_obj_align(self->clock_label, LV_ALIGN_LEFT_MID, DEFAULT_PADDING, 0);
 
     lv_obj_set_user_data(sb, (void *) self);
     lv_obj_add_event_cb(sb, status_bar_delete, LV_EVENT_DELETE, self);

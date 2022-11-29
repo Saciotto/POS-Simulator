@@ -194,8 +194,8 @@ static lv_obj_t *create_menu_screen(lv_fragment_t *fragment, lv_obj_t *parent)
                 lv_obj_t *icon = lv_img_create(icon_area);
                 lv_img_set_src(icon, option->icon);
                 lv_color_t color = TEXT_COLOR;
-                lv_obj_set_style_img_recolor(icon, color, 0);
-                lv_obj_set_style_img_recolor_opa(icon, LV_OPA_COVER, 0);
+                lv_obj_set_style_img_recolor(icon, color, LV_STATE_DEFAULT);
+                lv_obj_set_style_img_recolor_opa(icon, LV_OPA_COVER, LV_STATE_DEFAULT);
                 lv_obj_align(icon, LV_ALIGN_CENTER, 0, 0);
             }
 

@@ -6,9 +6,11 @@
 #include "dimensions.h"
 
 static lv_fragment_manager_t *manager = NULL;
+static lv_obj_t *scr = NULL;
 static lv_obj_t *status_bar = NULL;
 static lv_obj_t *working_area = NULL;
 static lv_group_t *keypad_group = NULL;
+static volatile bool finish_app = false;
 
 static void delete_fragment_manager(lv_event_t *e)
 {
@@ -23,9 +25,16 @@ static void on_key_pressed(lv_event_t *e)
         lv_event_send(top->obj, LV_EVENT_KEY, e);
 }
 
+static void dispose_gui_engine()
+{
+    lv_obj_del(scr);
+    lv_group_del(keypad_group);
+    lv_fragment_manager_del(manager);
+}
+
 void initialize_gui_engine(lv_fragment_t *initial_screen)
 {
-    lv_obj_t *scr = lv_obj_create(NULL);
+    scr = lv_obj_create(NULL);
     lv_scr_load(scr);
 
     status_bar = status_bar_create(scr);
@@ -64,7 +73,8 @@ void execute_app()
     fw_timestamp now;
     fw_timestamp last;
     fw_get_timestamp(&last);
-    for (;;) {
+    finish_app = false;
+    while (!finish_app) {
         lv_event_send(status_bar, LV_EVENT_REFRESH, NULL);
         lv_task_handler();
         fw_sleep_ms(27);
@@ -73,4 +83,10 @@ void execute_app()
         last = now;
         lv_tick_inc(diff);
     }
+    dispose_gui_engine();
+}
+
+void close_app()
+{
+    finish_app = true;
 }
