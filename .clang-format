@@ -8,3 +8,4 @@ FixNamespaceComments: true
 
 AllowShortFunctionsOnASingleLine: Empty
 NamespaceIndentation: None
+PointerAlignment: Right

@@ -8,7 +8,7 @@ static void on_menu_clicked();
 static void on_shortcut_clicked();
 static void exit_menu();
 
-static const idle_screen_data idle_data = {
+static const idle_screen_config idle_config = {
     .on_menu_clicked = on_menu_clicked,
     .on_shortcut_clicked = on_shortcut_clicked
 };
@@ -37,7 +37,7 @@ static const menu_group main_menu_group[] = {
     { configuration_options, SIZE_OF_LIST(configuration_options) },
 };
 
-static const menu_data main_menu = {
+static const menu_config main_menu = {
     .title = NULL,
     .groups = main_menu_group,
     .no_groups = SIZE_OF_LIST(main_menu_group)
@@ -50,7 +50,7 @@ static void exit_menu()
 
 static void on_menu_clicked()
 {
-    lv_fragment_t* fragment = lv_fragment_create(&menu_screen, (void*) &main_menu);
+    lv_fragment_t *fragment = lv_fragment_create(&menu_screen, (void *) &main_menu);
     inflate_screen(fragment);
 }
 
@@ -58,7 +58,7 @@ static void on_shortcut_clicked()
 {
 }
 
-lv_fragment_t* idle_create()
+lv_fragment_t *idle_create()
 {
-    return lv_fragment_create(&idle_screen, (void*) &idle_data);
+    return lv_fragment_create(&idle_screen, (void *) &idle_config);
 }

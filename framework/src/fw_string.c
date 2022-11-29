@@ -2,7 +2,7 @@
 
 #include <string.h>
 
-int fw_strcpy_s(char* dest, size_t destsz, const char* src)
+int fw_strcpy_s(char *dest, size_t destsz, const char *src)
 {
     if (src == NULL)
         src = "";
@@ -16,7 +16,7 @@ int fw_strcpy_s(char* dest, size_t destsz, const char* src)
     return 0;
 }
 
-int fw_strcat_s(char* dest, size_t destsz, const char* src)
+int fw_strcat_s(char *dest, size_t destsz, const char *src)
 {
     size_t len;
 
@@ -34,7 +34,7 @@ int fw_strcat_s(char* dest, size_t destsz, const char* src)
     return 0;
 }
 
-int fw_strncpy_s(char* dest, size_t destsz, const char* src, size_t len)
+int fw_strncpy_s(char *dest, size_t destsz, const char *src, size_t len)
 {
     if (src == NULL)
         src = "";
@@ -49,7 +49,7 @@ int fw_strncpy_s(char* dest, size_t destsz, const char* src, size_t len)
     return 0;
 }
 
-int fw_strncat_s(char* dest, size_t destsz, const char* src, size_t len)
+int fw_strncat_s(char *dest, size_t destsz, const char *src, size_t len)
 {
     size_t min;
     int ret;
@@ -67,24 +67,24 @@ int fw_strncat_s(char* dest, size_t destsz, const char* src, size_t len)
     return ret;
 }
 
-char* fw_stracpy(char* dest, const char* src, size_t destsz)
+char *fw_stracpy(char *dest, const char *src, size_t destsz)
 {
     fw_strcpy_s(dest, destsz, src);
     return dest;
 }
 
-char* fw_stracat(char* dest, const char* src, size_t destsz)
+char *fw_stracat(char *dest, const char *src, size_t destsz)
 {
     fw_strcat_s(dest, destsz, src);
     return dest;
 }
 
-char* fw_strdup(const char *src)
+char *fw_strdup(const char *src)
 {
     if (src == NULL)
         return NULL;
     size_t size = strlen(src) + 1;
-    char* copy = calloc(size, sizeof(*copy));
+    char *copy = calloc(size, sizeof(*copy));
     fw_strcpy_s(copy, size, src);
     return copy;
 }

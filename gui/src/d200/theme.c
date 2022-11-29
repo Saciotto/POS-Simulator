@@ -8,16 +8,18 @@
 #define MENU_ITEM_HORIZONTAL_PADDING 20
 
 static lv_style_t regular_text;
+static lv_style_t large_text;
 static lv_style_t menu_container;
 static lv_style_t menu_item;
 static lv_style_t menu_separator;
 static lv_style_t pressed;
 static lv_style_t focused;
+static lv_style_t button;
 
 static void set_default_theme()
 {
-    lv_disp_t* display = lv_disp_get_default();
-    lv_theme_t* th = lv_theme_default_init(display, SECONDARY_COLOR, SECONDARY_LIGHT_COLOR, 0, &font_roboto_18);
+    lv_disp_t *display = lv_disp_get_default();
+    lv_theme_t *th = lv_theme_default_init(display, PRIMARY_COLOR, PRIMARY_LIGHT_COLOR, 0, &font_roboto_18);
     lv_disp_set_theme(display, th);
 }
 
@@ -25,6 +27,9 @@ static void initialize_text()
 {
     lv_style_init(&regular_text);
     lv_style_set_text_font(&regular_text, &font_roboto_14);
+
+    lv_style_init(&large_text);
+    lv_style_set_text_font(&large_text, &font_roboto_18);
 }
 
 static void initialize_events_effects()
@@ -60,40 +65,61 @@ static void initialize_menu_style()
     lv_style_set_bg_color(&menu_separator, lv_color_black());
 }
 
+static void intialize_buttons_style()
+{
+    lv_style_init(&button);
+    lv_style_set_bg_color(&button, BACKGROUND_COLOR);
+    lv_style_set_border_color(&button, PRIMARY_COLOR);
+    lv_style_set_text_color(&button, TEXT_COLOR);
+    lv_style_set_border_width(&button, 2);
+    lv_style_set_radius(&button, 20);
+}
+
 void initialize_theme()
 {
     set_default_theme();
     initialize_text();
     initialize_events_effects();
     initialize_menu_style();
+    intialize_buttons_style();
 }
 
-lv_style_t* regular_text_style()
+lv_style_t *regular_text_style()
 {
     return &regular_text;
 }
 
-lv_style_t* pressed_style()
+lv_style_t *large_text_style()
+{
+    return &large_text;
+}
+
+lv_style_t *pressed_style()
 {
     return &pressed;
 }
 
-lv_style_t* focused_style()
+lv_style_t *focused_style()
 {
     return &focused;
 }
 
-lv_style_t* menu_container_style()
+lv_style_t *menu_container_style()
 {
     return &menu_container;
 }
 
-lv_style_t* menu_item_style()
+lv_style_t *menu_item_style()
 {
     return &menu_item;
 }
 
-lv_style_t* menu_separator_style()
+lv_style_t *menu_separator_style()
 {
     return &menu_separator;
+}
+
+lv_style_t *button_style()
+{
+    return &button;
 }

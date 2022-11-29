@@ -2,8 +2,8 @@
 
 #include "fw_lvgl.h"
 
-#include "platf_lvgl_driver.h"
 #include "lvgl.h"
+#include "platf_lvgl_driver.h"
 
 #define DISPLAY_HOR_RES 320
 #define DISPLAY_VER_RES 240

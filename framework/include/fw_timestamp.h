@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-typedef struct  {
+typedef struct {
     unsigned long usec;
     unsigned long sec;
 } fw_timestamp;

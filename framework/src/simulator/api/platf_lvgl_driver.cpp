@@ -7,7 +7,7 @@
 
 using namespace simulator::framework;
 
-void driver_flush_display(lv_disp_drv_t* disp_drv, const lv_area_t* area, lv_color_t* color_p)
+void driver_flush_display(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_t *color_p)
 {
     if (app == nullptr)
         return;
@@ -24,9 +24,9 @@ void driver_flush_display(lv_disp_drv_t* disp_drv, const lv_area_t* area, lv_col
     lv_disp_flush_ready(disp_drv);
 }
 
-void driver_read_touchscreen(lv_indev_drv_t * drv, lv_indev_data_t*data)
+void driver_read_touchscreen(lv_indev_drv_t *drv, lv_indev_data_t *data)
 {
-    if(app->isTouchPressed()) {
+    if (app->isTouchPressed()) {
         data->point.x = app->getTouchPosition().x();
         data->point.y = app->getTouchPosition().y();
         data->state = LV_INDEV_STATE_PRESSED;
@@ -35,7 +35,7 @@ void driver_read_touchscreen(lv_indev_drv_t * drv, lv_indev_data_t*data)
     }
 }
 
-void driver_read_keypad(lv_indev_drv_t * drv, lv_indev_data_t*data)
+void driver_read_keypad(lv_indev_drv_t *drv, lv_indev_data_t *data)
 {
     data->key = app->getKey();
     data->state = app->isKeyPressed() ? LV_INDEV_STATE_PRESSED : LV_INDEV_STATE_RELEASED;

@@ -6,7 +6,7 @@
 void fw_format_time(const fw_time *time, const char *format, char *str, size_t str_size)
 {
     int format_len;
-    while(*format) {
+    while (*format) {
         char fmt = *format;
         format_len = 1;
         format++;

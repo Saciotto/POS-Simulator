@@ -12,36 +12,36 @@
 #define SEPARATOR_PADDING 20
 #define ICON_WIDTH        30
 
-static void construct_menu_screen(lv_fragment_t* fragment, void* args);
-static void destruct_menu_screen(lv_fragment_t* fragment);
-static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent);
+static void construct_menu_screen(lv_fragment_t *fragment, void *args);
+static void destruct_menu_screen(lv_fragment_t *fragment);
+static lv_obj_t *create_menu_screen(lv_fragment_t *fragment, lv_obj_t *parent);
 
 typedef void (*on_clicked_cb)();
 
 typedef struct {
-    char* label;
-    const lv_img_dsc_t* icon;
+    char *label;
+    const lv_img_dsc_t *icon;
     on_clicked_cb on_clicked;
     int shortcut;
 } menu_option_priv;
 
 typedef struct {
-    menu_option_priv* options;
+    menu_option_priv *options;
     size_t no_options;
 } menu_group_priv;
 
 typedef struct {
-    char* title;
-    menu_group_priv* groups;
+    char *title;
+    menu_group_priv *groups;
     size_t no_groups;
     bool icons_enabled;
     on_clicked_cb on_shortcut_clicked[9];
-    lv_group_t* navigation_group;
-} menu_data_priv;
+    lv_group_t *navigation_group;
+} menu_config_priv;
 
 typedef struct {
     lv_fragment_t base;
-    menu_data_priv data;
+    menu_config_priv config;
 } menu_instance;
 
 const lv_fragment_class_t menu_screen = {
@@ -51,101 +51,102 @@ const lv_fragment_class_t menu_screen = {
     .instance_size = sizeof(menu_instance)
 };
 
-static void on_menu_clicked(lv_event_t* e)
+static void on_menu_clicked(lv_event_t *e)
 {
     on_clicked_cb option_clicked_cb = (on_clicked_cb) e->user_data;
     if (option_clicked_cb != NULL)
         option_clicked_cb();
 }
 
-static void on_key_pressed(lv_event_t* e)
+static void on_key_pressed(lv_event_t *e)
 {
-    menu_data_priv* self = (menu_data_priv*) e->user_data;
+    menu_config_priv *config = (menu_config_priv *) e->user_data;
     uint32_t key = lv_indev_get_key(lv_indev_get_act());
     if (key >= '1' && key <= '9') {
         key -= '1';
-        self->on_shortcut_clicked[key]();
+        config->on_shortcut_clicked[key]();
         return;
     } else if (key == KEY_PREVIOUS) {
-        lv_group_focus_prev(self->navigation_group);
+        lv_group_focus_prev(config->navigation_group);
     } else if (key == KEY_NEXT) {
-        lv_group_focus_next(self->navigation_group);
+        lv_group_focus_next(config->navigation_group);
     } else if (key == KEY_ENTER) {
-        lv_obj_t* obj = lv_group_get_focused(self->navigation_group);
+        lv_obj_t *obj = lv_group_get_focused(config->navigation_group);
         lv_event_send(obj, LV_EVENT_CLICKED, NULL);
     }
 }
 
-static void construct_menu_screen(lv_fragment_t* fragment, void* args)
+static void construct_menu_screen(lv_fragment_t *fragment, void *args)
 {
-    const menu_data* orig = (menu_data*) args;
-    menu_data_priv* self = &((menu_instance*) fragment)->data;
-    memset(self, 0, sizeof(*self));
+    const menu_config *orig = (menu_config *) args;
+    menu_config_priv *config = &((menu_instance *) fragment)->config;
+    memset(config, 0, sizeof(*config));
     int count = 0;
 
-    self->icons_enabled = false;
-    self->title = fw_strdup(orig->title);
-    self->no_groups = orig->no_groups;
-    self->groups = calloc(self->no_groups, sizeof(*self->groups));
+    config->icons_enabled = false;
+    config->title = fw_strdup(orig->title);
+    config->no_groups = orig->no_groups;
+    config->groups = calloc(config->no_groups, sizeof(*config->groups));
     int g_id, o_id;
-    for (g_id = 0; g_id < self->no_groups; g_id++) {
-        const menu_group* orig_group = &orig->groups[g_id];
-        menu_group_priv* group = &self->groups[g_id];
+    for (g_id = 0; g_id < config->no_groups; g_id++) {
+        const menu_group *orig_group = &orig->groups[g_id];
+        menu_group_priv *group = &config->groups[g_id];
         group->no_options = orig_group->no_options;
         group->options = calloc(group->no_options, sizeof(*group->options));
         for (o_id = 0; o_id < group->no_options; o_id++) {
-            const menu_option* orig_option = &orig_group->options[o_id];
-            menu_option_priv* option = &group->options[o_id];
+            const menu_option *orig_option = &orig_group->options[o_id];
+            menu_option_priv *option = &group->options[o_id];
             option->label = fw_strdup(orig_option->label);
             option->icon = get_icon(orig_option->icon);
             if (option->icon != NULL)
-                self->icons_enabled = true;
+                config->icons_enabled = true;
             option->on_clicked = orig_option->on_clicked;
             if (count < 9) {
                 option->shortcut = count + 1;
-                self->on_shortcut_clicked[count++] = option->on_clicked;
+                config->on_shortcut_clicked[count++] = option->on_clicked;
             }
         }
     }
-    self->navigation_group = lv_group_create();
+    config->navigation_group = lv_group_create();
 }
 
-static void destruct_menu_screen(lv_fragment_t* fragment)
+static void destruct_menu_screen(lv_fragment_t *fragment)
 {
-    menu_data_priv* self = &((menu_instance*) fragment)->data;
+    menu_config_priv *config = &((menu_instance *) fragment)->config;
     int g_id, o_id;
-    for (g_id = 0; g_id < self->no_groups; g_id++) {
-        menu_group_priv* group = &self->groups[g_id];
+    for (g_id = 0; g_id < config->no_groups; g_id++) {
+        menu_group_priv *group = &config->groups[g_id];
         for (o_id = 0; o_id < group->no_options; o_id++) {
-            menu_option_priv* option = &group->options[o_id];
+            menu_option_priv *option = &group->options[o_id];
             free(option->label);
         }
         free(group->options);
     }
-    free(self->title);
-    free(self->groups);
-    lv_group_del(self->navigation_group);
+    free(config->title);
+    free(config->groups);
+    lv_group_del(config->navigation_group);
 }
 
-static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
+static lv_obj_t *create_menu_screen(lv_fragment_t *fragment, lv_obj_t *parent)
 {
-    menu_instance* self = (menu_instance*) fragment;
+    menu_instance *self = (menu_instance *) fragment;
+    menu_config_priv *config = &self->config;
 
-    lv_obj_t* body = body_create(parent);
-    lv_obj_t* title = NULL;
-    lv_obj_t* previous_container = NULL;
+    lv_obj_t *body = body_create(parent);
+    lv_obj_t *title = NULL;
+    lv_obj_t *previous_container = NULL;
 
-    if (self->data.title != NULL) {
-        title = title_bar_create(body, self->data.title);
+    if (config->title != NULL) {
+        title = title_bar_create(body, config->title);
         previous_container = title;
     }
 
     int vertical_margin = 0;
     int group_idx, option_idx;
-    for (group_idx = 0; group_idx < self->data.no_groups; group_idx++) {
-        const menu_group_priv* group = &self->data.groups[group_idx];
+    for (group_idx = 0; group_idx < config->no_groups; group_idx++) {
+        const menu_group_priv *group = &config->groups[group_idx];
 
-        lv_obj_t* menu_area = lv_obj_create(body);
+        lv_obj_t *menu_area = lv_obj_create(body);
         lv_obj_remove_style_all(menu_area);
         lv_obj_add_style(menu_area, menu_container_style(), LV_STATE_DEFAULT);
         if (previous_container != NULL)
@@ -158,21 +159,21 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
         lv_coord_t button_width = SCREEN_WIDTH - 2 * lv_obj_get_style_border_width(menu_area, LV_PART_MAIN);
         lv_coord_t separator_width = button_width - 2 * SEPARATOR_PADDING;
 
-        lv_obj_t* previous_obj = NULL;
+        lv_obj_t *previous_obj = NULL;
         for (option_idx = 0; option_idx < group->no_options; option_idx++) {
-            const menu_option_priv* option = &group->options[option_idx];
+            const menu_option_priv *option = &group->options[option_idx];
 
-            lv_obj_t* button = lv_btn_create(menu_area);
+            lv_obj_t *button = lv_btn_create(menu_area);
             lv_obj_remove_style_all(button);
             lv_obj_add_style(button, menu_item_style(), LV_STATE_DEFAULT);
             lv_obj_add_style(button, pressed_style(), LV_STATE_PRESSED);
             lv_obj_add_style(button, focused_style(), LV_STATE_FOCUSED);
-            lv_group_add_obj(self->data.navigation_group, button);
+            lv_group_add_obj(config->navigation_group, button);
 
             if (previous_obj == NULL) {
                 lv_obj_align(button, LV_ALIGN_TOP_LEFT, 0, 0);
             } else {
-                lv_obj_t* separator = lv_obj_create(menu_area);
+                lv_obj_t *separator = lv_obj_create(menu_area);
                 lv_obj_remove_style_all(separator);
                 lv_obj_add_style(separator, menu_separator_style(), LV_STATE_DEFAULT);
                 lv_obj_set_width(separator, separator_width);
@@ -183,14 +184,14 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
             lv_obj_set_width(button, button_width);
             lv_obj_add_event_cb(button, on_menu_clicked, LV_EVENT_CLICKED, option->on_clicked);
 
-            if (self->data.icons_enabled && option->icon != NULL) {
-                lv_obj_t* icon_area = lv_obj_create(button);
+            if (config->icons_enabled && option->icon != NULL) {
+                lv_obj_t *icon_area = lv_obj_create(button);
                 lv_obj_remove_style_all(icon_area);
                 lv_obj_align(icon_area, LV_ALIGN_LEFT_MID, 0, 0);
                 lv_obj_set_width(icon_area, ICON_WIDTH);
                 lv_obj_set_height(icon_area, LV_SIZE_CONTENT);
 
-                lv_obj_t* icon = lv_img_create(icon_area);
+                lv_obj_t *icon = lv_img_create(icon_area);
                 lv_img_set_src(icon, option->icon);
                 lv_color_t color = TEXT_COLOR;
                 lv_obj_set_style_img_recolor(icon, color, 0);
@@ -198,14 +199,14 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
                 lv_obj_align(icon, LV_ALIGN_CENTER, 0, 0);
             }
 
-            lv_obj_t* label = lv_label_create(button);
+            lv_obj_t *label = lv_label_create(button);
             lv_label_set_text(label, option->label);
-            lv_coord_t label_offset = self->data.icons_enabled ? ICON_WIDTH : 0;
+            lv_coord_t label_offset = config->icons_enabled ? ICON_WIDTH : 0;
             lv_obj_align(label, LV_ALIGN_LEFT_MID, label_offset, 0);
             lv_obj_add_style(label, regular_text_style(), 0);
 
             if (option->shortcut != 0) {
-                lv_obj_t* shortcut_label = lv_label_create(button);
+                lv_obj_t *shortcut_label = lv_label_create(button);
                 char shortcut[20];
                 snprintf(shortcut, sizeof(shortcut), "(%d)", option->shortcut);
                 lv_label_set_text(shortcut_label, shortcut);
@@ -218,7 +219,7 @@ static lv_obj_t* create_menu_screen(lv_fragment_t* fragment, lv_obj_t* parent)
         previous_container = menu_area;
     }
 
-    lv_obj_add_event_cb(body, on_key_pressed, LV_EVENT_KEY, &self->data);
+    lv_obj_add_event_cb(body, on_key_pressed, LV_EVENT_KEY, config);
     lv_obj_set_scrollbar_mode(body, LV_SCROLLBAR_MODE_AUTO);
     lv_obj_set_scroll_snap_y(body, LV_SCROLL_SNAP_NONE);
     return body;
