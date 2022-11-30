@@ -2,7 +2,7 @@
 
 Simple Point of Sale simulator made in Qt (PIN-Pad interface is not included).
 
-# Demostration
+# Demonstration
 
 <img src="docs/demo.gif" alt="drawing" height="500"/>
 
