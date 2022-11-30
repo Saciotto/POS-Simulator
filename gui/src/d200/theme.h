@@ -3,9 +3,15 @@
 
 #include "lvgl.h"
 
+lv_style_t *small_text_style();
+
 lv_style_t *regular_text_style();
 
 lv_style_t *large_text_style();
+
+lv_style_t *xlarge_text_style();
+
+lv_style_t *xxlarge_text_style();
 
 lv_style_t *pressed_style();
 

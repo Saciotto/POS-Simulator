@@ -1,10 +1,6 @@
 {
     "files.associations": {
-        "*.h": "c",
-        "array": "c",
-        "string": "c",
-        "string_view": "c",
-        "numbers": "c"
+        "*.h": "c"
     },
     "cmake.configureOnOpen": true
 }

@@ -20,7 +20,7 @@ static void on_menu_clicked()
 
 static void on_numpad_clicked(int number)
 {
-    lv_fragment_t *fragment = in_progress_create();
+    lv_fragment_t *fragment = trans_amount_create((uint64_t) number);
     inflate_screen(fragment);
 }
 

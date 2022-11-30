@@ -7,8 +7,11 @@
 #define MENU_ITEM_VERTICAL_PADDING   10
 #define MENU_ITEM_HORIZONTAL_PADDING 20
 
+static lv_style_t small_text;
 static lv_style_t regular_text;
 static lv_style_t large_text;
+static lv_style_t xlarge_text;
+static lv_style_t xxlarge_text;
 static lv_style_t menu_container;
 static lv_style_t menu_item;
 static lv_style_t menu_separator;
@@ -25,11 +28,20 @@ static void set_default_theme()
 
 static void initialize_text()
 {
+    lv_style_init(&small_text);
+    lv_style_set_text_font(&small_text, &font_roboto_14);
+
     lv_style_init(&regular_text);
-    lv_style_set_text_font(&regular_text, &font_roboto_14);
+    lv_style_set_text_font(&regular_text, &font_roboto_18);
 
     lv_style_init(&large_text);
-    lv_style_set_text_font(&large_text, &font_roboto_18);
+    lv_style_set_text_font(&large_text, &font_roboto_20);
+
+    lv_style_init(&xlarge_text);
+    lv_style_set_text_font(&xlarge_text, &font_roboto_24);
+
+    lv_style_init(&xxlarge_text);
+    lv_style_set_text_font(&xxlarge_text, &font_roboto_bold_32);
 }
 
 static void initialize_events_effects()
@@ -84,6 +96,11 @@ void initialize_theme()
     intialize_buttons_style();
 }
 
+lv_style_t *small_text_style()
+{
+    return &small_text;
+}
+
 lv_style_t *regular_text_style()
 {
     return &regular_text;
@@ -92,6 +109,16 @@ lv_style_t *regular_text_style()
 lv_style_t *large_text_style()
 {
     return &large_text;
+}
+
+lv_style_t *xlarge_text_style()
+{
+    return &xlarge_text;
+}
+
+lv_style_t *xxlarge_text_style()
+{
+    return &xxlarge_text;
 }
 
 lv_style_t *pressed_style()

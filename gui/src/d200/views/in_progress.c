@@ -57,7 +57,7 @@ static lv_obj_t *create_in_progress_screen(lv_fragment_t *self, lv_obj_t *parent
     // Create message
     lv_obj_t *msg = lv_label_create(body);
     lv_label_set_text(msg, "Esta tela não está presente nesta demonstração.");
-    lv_obj_add_style(msg, large_text_style(), LV_STATE_DEFAULT);
+    lv_obj_add_style(msg, regular_text_style(), LV_STATE_DEFAULT);
     lv_obj_set_style_text_align(msg, LV_TEXT_ALIGN_CENTER, LV_STATE_DEFAULT);
     lv_obj_set_width(msg, MESSAGE_WIDTH);
     lv_obj_align_to(msg, logo, LV_ALIGN_OUT_BOTTOM_MID, 0, MESSAGE_TOP_MARGIN);

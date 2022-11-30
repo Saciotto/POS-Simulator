@@ -9,6 +9,9 @@ LV_FONT_DECLARE(font_montserrat_14)
 LV_FONT_DECLARE(font_montserrat_26)
 LV_FONT_DECLARE(font_roboto_14)
 LV_FONT_DECLARE(font_roboto_18)
+LV_FONT_DECLARE(font_roboto_20)
+LV_FONT_DECLARE(font_roboto_24)
+LV_FONT_DECLARE(font_roboto_bold_32)
 
 // images
 
@@ -66,7 +69,7 @@ LV_IMG_DECLARE(img_undo)
 #define KEY_CANCEL    102
 #define KEY_MAIN_MENU 201
 #define KEY_SHORTCUT  202
-#define KEY_NEXT      202
-#define KEY_PREVIOUS  201
+#define KEY_NEXT      201
+#define KEY_PREVIOUS  202
 
 #endif // GUI_ASSETS_H

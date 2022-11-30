@@ -2,9 +2,11 @@ include(SetQtResources)
 
 pos_add_executable(application
     # Sources
+    src/controllers/amount.c
     src/controllers/idle.c
     src/controllers/in_progress.c
     src/controllers/main_menu.c
+    src/controllers/payment_type_menu.c
     src/main.c
 
     # Headers

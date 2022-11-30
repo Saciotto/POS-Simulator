@@ -5,6 +5,9 @@ target_sources(gui PRIVATE
     assets/font_montserrat_26.c
     assets/font_roboto_14.c
     assets/font_roboto_18.c
+    assets/font_roboto_20.c
+    assets/font_roboto_24.c
+    assets/font_roboto_bold_32.c
     assets/img_battery_1.c
     assets/img_battery_2.c
     assets/img_battery_3.c

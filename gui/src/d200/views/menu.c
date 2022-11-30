@@ -215,7 +215,7 @@ static lv_obj_t *create_menu_screen(lv_fragment_t *fragment, lv_obj_t *parent)
             lv_label_set_text(label, option->label);
             lv_coord_t label_offset = config->icons_enabled ? ICON_WIDTH : 0;
             lv_obj_align(label, LV_ALIGN_LEFT_MID, label_offset, 0);
-            lv_obj_add_style(label, regular_text_style(), 0);
+            lv_obj_add_style(label, small_text_style(), 0);
 
             if (option->shortcut != 0) {
                 lv_obj_t *shortcut_label = lv_label_create(button);
@@ -223,7 +223,7 @@ static lv_obj_t *create_menu_screen(lv_fragment_t *fragment, lv_obj_t *parent)
                 snprintf(shortcut, sizeof(shortcut), "(%d)", option->shortcut);
                 lv_label_set_text(shortcut_label, shortcut);
                 lv_obj_align(shortcut_label, LV_ALIGN_RIGHT_MID, 0, 0);
-                lv_obj_add_style(shortcut_label, regular_text_style(), 0);
+                lv_obj_add_style(shortcut_label, small_text_style(), 0);
             }
             previous_obj = button;
         }

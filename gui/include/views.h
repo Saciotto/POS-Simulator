@@ -3,6 +3,8 @@
 
 #include "engine.h"
 
+#include <stdint.h>
+
 // Idle view
 
 typedef struct {
@@ -48,10 +50,13 @@ extern const lv_fragment_class_t in_pregress_screen;
 // Amount view
 
 typedef struct {
-    unsigned long initial_value;
+    uint64_t initial_value;
+    const char *title;
+    const char *merchant_name;
+    const char *document;
     void (*on_back_clicked)();
     void (*on_cancel_clicked)();
-    void (*on_result)(unsigned long value);
+    void (*on_result)(uint64_t value);
 } amount_config;
 
 extern const lv_fragment_class_t amount_screen;
